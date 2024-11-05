@@ -6,11 +6,38 @@
   font-style: normal;
 }
 
+/* :root {
+  --bg-color: #1E1E2F;
+  --primary-color: #00E5FF;
+  --accent-color: #B388EB;
+  --text-color: #E8E8E8;
+  --highlight-color: #76D7C4;
+  --completed-task-color: #66BB6A;
+  --left-bg-color: #2B2D3C;
+  --right-bg-color: #1E1E2F;
+  --right-top-bg-color: #292B3A;
+  --right-content-bg-color: #1E1E2F;
+} */
+
+:root {
+  --bg-color: #0D1117;
+  --primary-color: #58A6FF; /* Neon Blue */
+  --accent-color: #F0A500; /* Golden Yellow for accents */
+  --text-color: #FFFFFF;
+  --highlight-color: #3FB950; /* Vibrant Green for highlights */
+  --completed-task-color: #34D399; /* Soft Green for completed tasks */
+  --left-bg-color: #161B22; /* Darker shade for left panel */
+  --right-bg-color: #0D1117;
+  --right-top-bg-color: #1A1E26; /* Slightly lighter for top section */
+  --right-content-bg-color: #0D1117; /* Matches main background */
+  --svg-fill-color: #161B22;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: #ffffff;
+  color: var(--text-color);
   font-family: 'Quicksand';
 }
 
@@ -18,7 +45,8 @@ body {
   width: 100vw;
   height: 100vh;
   display: flex;
-  background-color: #4f46e5;
+  background-color: var(--bg-color); 
+  color: var(--text-color);
 }
 
 .left {
@@ -26,14 +54,14 @@ body {
   flex: 1 1 auto;
   width: 200px;
   border-radius: 10px;
-  background-color: rgb(0 0 0 /.3);
+  background-color: var(--left-bg-color);
 }
 
 .right {
   margin: 10px 10px 10px 0px;
   flex: 12;
   border-radius: 10px;
-  background-color: rgb(256 256 256 /.3);
+  background-color: var(--right-bg-color);
 }
 
 .right, 
@@ -68,7 +96,6 @@ body {
 
 .left-content-one, 
 .left-content-three {
-  margin-left: 50px;
   width: 100%;
   padding: 15px;
   display: flex;
@@ -78,26 +105,51 @@ body {
 }
 
 .right-top {
-  height: 20%;
-  background-color: #c4b5fd;
+  height: 10%;
+  background-color: var(--right-top-bg-color);
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .right-content {
-  height: 80%;
+  background-color: var(--right-content-bg-color);
+  height: 90%;
   position: relative;
 }
 
 .left button {
+  position: relative;
+  color: var(--text-color);
+  padding: 5px;
   width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 1.5rem;
   appearance: none;
-  background: none;
+  background-color: var(--accent-color);
   border: none;
+  border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease;
+}
+
+.today::after, 
+.all-tasks::after, 
+.all-projects::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -14px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 20px 0 23px 20px;
+  border-color: transparent transparent transparent var(--accent-color);
+  visibility: hidden;
+}
+
+.left button:focus {
+  background-color: var(--primary-color);
 }
 
 .left button:hover, .add-todo:hover {
@@ -115,7 +167,7 @@ body {
   appearance: none;
   background: none;
   height: 50px;
-  color: white;
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,8 +176,14 @@ body {
   bottom: 0;
   right: 0;
   cursor: pointer;
-}
-
-.add-todo {
   transition: transform 0.3s ease;
 }
+
+h1, h2 {
+  color: var(--text-color);
+}
+
+svg {
+  fill: var(--svg-fill-color);
+}
+

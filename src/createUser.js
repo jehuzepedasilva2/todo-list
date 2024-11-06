@@ -5,7 +5,7 @@ function createUser() {
     todos: [], 
     projects: [],
   };
-  Todos.addTodo(userObj, "Create todo", "Create your first todo!", new Date(), 3);
+  Todos.addTodo(userObj, "Create a todo", "Create your first todo!", new Date(), "medium");
   return userObj;
 }
 

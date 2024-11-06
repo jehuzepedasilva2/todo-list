@@ -21,7 +21,7 @@
           </svg>
           Today
         </button>
-        <button type="button" class="all-task">
+        <button type="button" class="all-tasks">
           <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
           <svg fill="#ffffff" width="30px" height="30px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="list-1"  enable-background="new 0 0 32 32" xml:space="preserve">
             <rect x="9" y="14" width="2" height="2"/>
@@ -70,10 +70,28 @@
   <div class="right">
     <div class="right-top"></div>
     <div class="right-content">
-      <button class="add-todo">
-        +
-      </button>
     </div>
   </div>
+
+  <button class="add-todo">
+    +
+  </button>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" style="color: black;">&times;</span>
+      <h2>Add New Task</h2>
+      <input type="text" placeholder="Task name" id="taskName">
+      <textarea placeholder="Task description" id="taskDescription"></textarea>
+      <select name="priority" id="priority-select">
+        <option value-="" selected> --Select Priority-- </option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <button id="saveTaskBtn">Save Task</button>
+    </div>
+  </div>
+
 </body>
 </html>

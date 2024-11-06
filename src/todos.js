@@ -1,5 +1,3 @@
-import dateToObj from "./dateConverter";
-
 function createTodo(title, description, dueDate, priority) {
   return {
     title: title, 
@@ -19,9 +17,8 @@ function updateTodo(obj, index, title, desc, dueDate, priority) {
 }
 
 function addTodo({ todos }, title, description, dueDate, priority) {
-  const date = dateToObj(dueDate);
   todos.push(
-    createTodo(title, description, date, priority)
+    createTodo(title, description, dueDate, priority)
   );
 }
 

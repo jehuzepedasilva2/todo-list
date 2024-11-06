@@ -1,10 +1,19 @@
-import { addTodosProj } from "./projects.js";
-import Todos from "./todos.js";
+import CachedDOM from "./cachedDOM.js";
+import handleLeftButton from "./handleLeftButtons.js";
 import CreateUser from "./createUser.js";
+import { displayTodayTodos } from "./changeDOM.js";
+import handleEvents from "./handleEvents.js";
 import "./styles.css";
 
-const user = CreateUser();
-Todos.addTodo(user, "eat", "eat something", new Date(), 1);
-console.log(user);
-addTodosProj(user, "eat", "eat something", new Date(), 1);
-console.log(user);
+function main() {
+  const leftButtons = CachedDOM.cachedLeftButtons;
+  leftButtons.forEach(btn => {
+    btn.addEventListener("click", () => handleLeftButton(btn, leftButtons));
+  });
+  const userObj = CreateUser();
+  displayTodayTodos(userObj); 
+  handleLeftButton(leftButtons[0], leftButtons);
+  handleEvents.handleAddTodosModal(); // need to add functionality
+}
+
+main();

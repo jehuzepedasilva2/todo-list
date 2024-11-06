@@ -1,4 +1,4 @@
-import { displayTodayTodos } from "./changeDOM.js";
+import { displayTodayTodos, displayAllTodos } from "./changeDOM.js";
 import Todos from "./todos.js";
 import CachedDOM from "./cachedDOM";
 
@@ -33,7 +33,7 @@ function undoCrossOutTodo(card, todoObj) {
 
 function handleDeleteTodos(todos, i, user) {
   todos.splice(i, 1);
-  displayTodayTodos(user);
+  displayAllTodos(user);
 }
 
 function handleCheckbox(deleteButton, card, todoObj, checkbox, isRerender=false) {
@@ -71,15 +71,14 @@ function clearModal(modal) {
   modal.style.display = 'none';
 }
 
-
 function handleSaveModal(userObj, modal) {
   const inputAreaValue = modal.querySelector('#task-name').value;
   const textAreaValue = modal.querySelector('#task-description').value;
   const dateArea = modal.querySelector('#task-date').value;
   const prioritySelectValue = modal.querySelector('#priority-select').value;
   const [year, month, date] = dateArea.split("-");
-  Todos.addTodo(userObj, inputAreaValue, textAreaValue, new Date(year, month, date), prioritySelectValue);
-  displayTodayTodos(userObj);
+  Todos.addTodo(userObj, inputAreaValue, textAreaValue, new Date(year, month-1, date), prioritySelectValue);
+  displayAllTodos(userObj);
   clearModal(modal);
 }
 

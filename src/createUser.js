@@ -15,13 +15,13 @@ function createUser() {
     {
       title: "Brush teeth",
       desc: "Brush your teeth before bed!",
-      date: new Date(),
+      date: new Date(2024, 11, 1),
       priority: "high"
     },
     {
       title: "Take dog for a walk",
       desc: "Take the dog for a walk at the park",
-      date: new Date(),
+      date: new Date(2025, 0, 1),
       priority: "medium"
     }
   ]

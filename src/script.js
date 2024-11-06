@@ -7,14 +7,16 @@ import "./styles.css";
 
 function main() {
   const leftButtons = CachedDOM.cachedLeftButtons;
-  leftButtons.forEach(btn => {
-    btn.addEventListener("click", () => handleLeftButton(btn, leftButtons));
-  });
   const userObj = CreateUser();
-  displayTodayTodos(userObj); 
-  handleLeftButton(leftButtons[0], leftButtons);
+  leftButtons.forEach(btn => {
+    btn.addEventListener("click", () => handleLeftButton(userObj, btn, leftButtons));
+  });
+  handleLeftButton(userObj, leftButtons[0], leftButtons); // start off at today
   handleEvents.handleModalCalenderUpdate();
   handleEvents.handleAddTodosModal(userObj);
 }
 
 main();
+
+// issue when adding new todos, must ensure that I stay in the same tab I was originally in, (i.e. today, all task, projects..)
+//      - handleSaveModal, handleDeleteTodos

@@ -1,4 +1,5 @@
 import CachedDOM from "./cachedDOM.js";
+import { displayAllTodos, displayTodayTodos, displayAllProjects } from "./changeDOM.js";
 
 function removeButtonLook(leftButtons) {
   leftButtons.forEach(btn => {
@@ -20,8 +21,19 @@ function addDateRightTop() {
   rightTop.appendChild(h1);
 }
 
-export default function handleLeftButton(btn, leftButtons) {
-  removeButtonLook(leftButtons);       
+function display(user, btn) {
+  if (btn.classList[0] === "today") {
+    displayTodayTodos(user);
+  } else if (btn.classList[0] === "all-tasks") {
+    displayAllTodos(user);
+  } else {
+    displayAllProjects(user);
+  }
+}
+
+export default function handleLeftButton(user, btn, leftButtons) {
+  removeButtonLook(leftButtons);    
+  display(user, btn);   
   btn.classList.add("new-style"); 
   addDateRightTop(); 
 }

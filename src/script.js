@@ -13,7 +13,7 @@ function main() {
   const userObj = CreateUser();
   displayTodayTodos(userObj); 
   handleLeftButton(leftButtons[0], leftButtons);
-  handleEvents.handleAddTodosModal(); // need to add functionality
+  handleEvents.handleAddTodosModal(); // need to add functionality to this, save task and clearing modal
 }
 
 main();

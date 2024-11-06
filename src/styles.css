@@ -334,10 +334,6 @@ input[type="checkbox"]:checked:after {
   opacity: .5;
 }
 
-.modal-content select {
-  font-family: 'Quicksand';
-}
-
 @keyframes slideIn {
   from { transform: translateY(-100px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }

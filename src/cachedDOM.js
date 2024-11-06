@@ -30,7 +30,11 @@ function getTodoCards() {
 }
 
 function getModal() {
-  return document.getElementById("myModal")
+  return document.getElementById("my-modal");
+}
+
+function getModalSaveButton() {
+  return document.getElementById("save-task-btn");
 }
 
 export default (function getDOM() {
@@ -42,6 +46,7 @@ export default (function getDOM() {
     cachedRightContent: getRightContent(),
     cachedAddTodoButton: getAddTodoButton(),
     cachedTodoCards: getTodoCards(),
-    cachedModal: getModal()
-  }
+    cachedModal: getModal(), 
+    cachedModalSaveButton: getModalSaveButton(),
+  };
 })();

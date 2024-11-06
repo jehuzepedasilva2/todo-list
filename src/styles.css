@@ -8,20 +8,23 @@
 
 :root {
   --bg-color: #0D1117;
-  --primary-color: #58A6FF; /* Neon Blue */
-  --accent-color: #F0A500; /* Golden Yellow for accents */
+  --primary-color: #58A6FF;
+  --accent-color: #F0A500;
   --text-color: #FFFFFF;
-  --highlight-color: #3FB950; /* Vibrant Green for highlights */
-  --completed-task-color: #34D399; /* Soft Green for completed tasks */
-  --left-bg-color: #161B22; /* Darker shade for left panel */
+  --highlight-color: #3FB950;
+  --completed-task-color: #34D399;
+  --left-bg-color: #161B22;
   --right-bg-color: #0D1117;
-  --right-top-bg-color: #1A1E26; /* Slightly lighter for top section */
-  --right-content-bg-color: #0D1117; /* Matches main background */
+  --right-top-bg-color: #1A1E26;
+  --right-content-bg-color: #0D1117;
   --svg-fill-color: #161B22;
-  --high-priority-bg-color: #ed51514f;
-  --medium-priority-bg-color: #f2c85c34;
-  --low-priority-bg-color: #76f66f41;
+  --card-color: #1F252C;
+  --high-priority-border-color: #FF4D4D;
+  --medium-priority-border-color: #FFB347;
+  --low-priority-border-color: #4CAF50;
   --crossed-out-text: #8381817d;
+  --modal-bg-color: #1A1E26;
+  --text-color-modal: #161B22;
 }
 
 * {
@@ -36,6 +39,7 @@ body {
   width: 100vw;
   height: 100vh;
   display: flex;
+  align-items: stretch;
   background-color: var(--bg-color); 
   color: var(--text-color);
 }
@@ -51,9 +55,12 @@ body {
 .right {
   margin: 10px 10px 10px 0px;
   flex: 12;
+  /* min-height: 0; */
   border-radius: 10px;
   background-color: var(--right-bg-color);
+  overflow-y: auto; /* Enable scrolling if content exceeds the viewport */
 }
+
 
 .right, 
 .left {
@@ -110,8 +117,9 @@ body {
   height: 90%;
   position: relative;
   display: flex;
-  gap: 4px;
-  padding-top: 4px;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
 }
 
 .todo-card {
@@ -147,15 +155,15 @@ body {
 }
 
 .high {
-  background-color: var(--high-priority-bg-color);
+  border: 1px solid var(--high-priority-border-color);
 }
 
 .medium {
-  background-color: var(--medium-priority-bg-color);
+  border: 1px solid var(--medium-priority-border-color);
 }
 
 .low{
-  background-color: var(--low-priority-bg-color);
+  border: 1px solid var(--low-priority-border-color);
 }
 
 .left button {
@@ -210,7 +218,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 4rem;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   cursor: pointer;
@@ -246,7 +254,7 @@ input[type="checkbox"]:checked:after {
 .crossed-out {
   position: relative;
   width: 100%;
-  color: var(--crossed-out-text)
+  color: var(--crossed-out-text);
 }
 
 .crossed-out::after {
@@ -274,17 +282,17 @@ input[type="checkbox"]:checked:after {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  color: var(--text-color);
   z-index: 1;
 }
 
-
 .modal-content {
   display: flex;
-  color: #000000;
   flex-direction: column;
   align-items: center;  
   gap: 20px;
-  background-color: #fefefe;
+  background-color: var(--modal-bg-color);
+  color: var(--text-color); 
   margin: 10% auto;
   padding: 20px;
   border-radius: 8px;
@@ -308,30 +316,45 @@ input[type="checkbox"]:checked:after {
 .modal-content textarea,
 .modal-content button, 
 .modal-content select {
-  color: #000000;
   font-size: 1rem;
+  color: var(--text-color-modal);
 }
 
-.modal-content h2,
 .modal-content p,
 .modal-content input,
 .modal-content textarea,
-.modal-content button, 
 .modal-content select {
   width: 100%;
-  color: #000000;
+  color: var(--text-color-modal);
+}
+
+.modal-content h2,
+.modal-content button {
+  color: var(--text-color);
+  width: 100%;
+}
+
+.modal-content input,
+.modal-content textarea {
+  border: none;
+  border-radius: 5px;
 }
 
 .modal-content button {
   padding: 5px;
   width: max-content;
   background: none;
-  border: 1px solid black;
+  border: 1px solid var(--text-color);
   border-radius: 10px;
 }
 
 .modal-content button:active {
   opacity: .5;
+}
+
+#my-modal label {
+  color: var(--text-color); /* Ensures text remains readable */
+  font-size: large;
 }
 
 @keyframes slideIn {

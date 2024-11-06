@@ -77,19 +77,21 @@
     +
   </button>
 
-  <div id="myModal" class="modal">
+  <div id="my-modal" class="modal">
     <div class="modal-content">
-      <span class="close" style="color: black;">&times;</span>
+      <span class="close" style="color: white;">&times;</span>
       <h2>Add New Task</h2>
-      <input type="text" placeholder="Task name" id="taskName">
-      <textarea placeholder="Task description" id="taskDescription"></textarea>
+      <input type="text" placeholder="Task name" id="task-name">
+      <textarea placeholder="Task description" id="task-description"></textarea>
+      <label for="task-date">Due Date:</label>
+      <input type="date" id="task-date" name="due_date" value="" min="" max="2999-12-31" />
       <select name="priority" id="priority-select">
         <option value-="" selected> --Select Priority-- </option>
         <option value="high">High</option>
         <option value="medium">Medium</option>
         <option value="low">Low</option>
       </select>
-      <button id="saveTaskBtn">Save Task</button>
+      <button id="save-task-btn">Save Task</button>
     </div>
   </div>
 

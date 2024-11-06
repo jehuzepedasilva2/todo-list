@@ -4,6 +4,7 @@ function createTodo(title, description, dueDate, priority) {
     description: description,
     dueDate: dueDate,
     priority: priority,
+    isComplete: false,
   }
 }
 

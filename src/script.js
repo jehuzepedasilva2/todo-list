@@ -1,7 +1,6 @@
 import CachedDOM from "./cachedDOM.js";
 import handleLeftButton from "./handleLeftButtons.js";
 import CreateUser from "./createUser.js";
-import { displayTodayTodos } from "./changeDOM.js";
 import handleEvents from "./handleEvents.js";
 import "./styles.css";
 
@@ -14,7 +13,7 @@ function main() {
   handleLeftButton(userObj, leftButtons[0], leftButtons); // start off at today
   handleEvents.handleModalCalenderUpdate();
   handleEvents.handleAddTodosModal(userObj);
-  handleEvents.handleCloudScene();
+  handleEvents.startTheme(1);
 }
 
 main();

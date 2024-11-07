@@ -1,6 +1,7 @@
 import CachedDOM from "./cachedDOM.js";
 import { displayAllTodos, displayTodayTodos, displayAllProjects } from "./changeDOM.js";
 import { convertDateToReadable, getDayFromIndex } from "./dateManipulation.js";
+import handleEvents from "./handleEvents.js";
 
 function removeButtonLook(leftButtons) {
   leftButtons.forEach(btn => {
@@ -14,6 +15,15 @@ function removeRightTop() {
 }
 
 function addRightTop() {
+  const sun = document.querySelector(".sun");
+  const moon = document.querySelector(".moon");
+  let sunClasses = `sun vis`;
+  let moonClasses = "moon";
+  if (sun && moon) {
+    sunClasses = sun.classList.toString();
+    moonClasses = moon.classList.toString();
+  }
+  console.log(sunClasses)
   removeRightTop();
   const rightTop = CachedDOM.cachedRightTop;
   const todaysDate = new Date();
@@ -34,14 +44,14 @@ function addRightTop() {
           <div class="circle" id="circle-05"></div>
           <div class="circle" id="circle-06"></div>
         </div>
-        <div class="sun vis">
+        <div class="${sunClasses}">
           <div class="sun-inner-01">
             <div class="sun-inner-02">
               <div class="sun-inner-03"></div>
             </div>
           </div>
         </div>
-        <div class="moon">
+        <div class="${moonClasses}">
           <div class="moon-inner-01">
             <div class="moon-inner-02">
               <div class="crater-01"></div>
@@ -61,6 +71,7 @@ function addRightTop() {
       </div>
     </div>
     `;
+    handleEvents.handleCloudScene();
 }
 
 function display(user, btn) {

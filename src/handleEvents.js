@@ -50,6 +50,14 @@ const darkTheme = {
   '--completed-all-todo-bg': 'rgba(0, 128, 0, 0.1)'
 };
 
+function startTheme(x) {
+  if (x === 1) {
+    applyTheme(lightTheme);
+  } else {
+    applyTheme(darkTheme);
+  }
+}
+
 function applyTheme(theme) {
   const root = document.documentElement;
   Object.keys(theme).forEach(property => {
@@ -72,7 +80,6 @@ function handleCloudScene() {
       applyTheme(lightTheme);
     }
   })
-  applyTheme(lightTheme)
 }
 
 function crossOutTodo(card, todoObj, isRerender) {
@@ -228,5 +235,6 @@ export default (function eventHandler() {
     handleAllTaskCompleteButton,
     handleAllTaskDeleteButton,
     handleCloudScene,
+    startTheme
   }
 })();

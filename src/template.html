@@ -12,7 +12,7 @@
     </div>
     <div class="left-content">
       <div class="left-content-one">
-        <button type="button" class="today">
+        <button type="button" class="today static">
           <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
           <svg width="30px" height="30px" viewBox="0 0 28 28" fill="white" xmlns="http://www.w3.org/2000/svg">
             <path d="M25 6.25C25 4.45507 23.5449 3 21.75 3H6.25C4.45507 3 3 4.45507 3 6.25V21.75C3 23.5449 4.45507 25 6.25 25H12.2483C12.2483 25 12.25 24.5184 12.25 24.25V23.5H6.25C5.2835 23.5 4.5 22.7165 4.5 21.75V9.503H23.5V21.75C23.5 22.7165 22.7165 23.5 21.75 23.5H15.75V24.25C15.75 24.5184 15.75 25 15.75 25H21.75C23.5449 25 25 23.5449 25 21.75V6.25ZM6.25 4.5H21.75C22.7165 4.5 23.5 5.2835 23.5 6.25V8.003H4.5V6.25C4.5 5.2835 5.2835 4.5 6.25 4.5Z"/>
@@ -21,7 +21,7 @@
           </svg>
           Today
         </button>
-        <button type="button" class="all-tasks">
+        <button type="button" class="all-tasks static">
           <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
           <svg fill="#ffffff" width="30px" height="30px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="list-1"  enable-background="new 0 0 32 32" xml:space="preserve">
             <rect x="9" y="14" width="2" height="2"/>
@@ -39,7 +39,14 @@
         <h2>Projects</h2>
       </div>
       <div class="left-content-three">
-        <button type="button" class="all-projects">
+        <button class="add-project">
+          <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+          <svg width="30px" height="30px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#000000" d="M128 192v640h768V320H485.76L357.504 192H128zm-32-64h287.872l128.384 128H928a32 32 0 0 1 32 32v576a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V160a32 32 0 0 1 32-32zm384 416V416h64v128h128v64H544v128h-64V608H352v-64h128z"/>
+          </svg>
+          Add Project
+        </button>
+        <button type="button" class="all-projects static">
           <?xml version="1.0" encoding="iso-8859-1"?>
           <svg fill="#ffffff" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
             viewBox="0 0 511.999 511.999" xml:space="preserve">
@@ -73,13 +80,11 @@
     </div>
   </div>
 
-  <button class="add-todo">
-    +
-  </button>
+  <button class="add-todo">+</button>
 
   <div id="my-modal" class="modal">
     <div class="modal-content">
-      <span class="close" style="color: white;">&times;</span>
+      <span class="close">&times;</span>
       <h2>Add New Task</h2>
       <input type="text" placeholder="Task name" id="task-name">
       <textarea placeholder="Task description" id="task-description"></textarea>
@@ -94,6 +99,12 @@
       <button id="save-task-btn">Save Task</button>
     </div>
   </div>
-
 </body>
 </html>
+
+
+<!-- 
+ <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFFFFF">
+            <path d="M267.33-120q-27.5 0-47.08-19.58-19.58-19.59-19.58-47.09V-740H160v-66.67h192V-840h256v33.33h192V-740h-40.67v553.33q0 27-19.83 46.84Q719.67-120 692.67-120H267.33Zm425.34-620H267.33v553.33h425.34V-740Zm-328 469.33h66.66v-386h-66.66v386Zm164 0h66.66v-386h-66.66v386ZM267.33-740v553.33V-740Z"/>
+          </svg>
+-->

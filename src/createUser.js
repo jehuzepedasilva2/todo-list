@@ -5,23 +5,24 @@ function createUser() {
     todos: [], 
     projects: [],
   };
+  const todaysDate = new Date();
   const sampleTasks = [
     {
-      title: "Create a todo",
-      desc: "Create your first todo!",
-      date: new Date(),
+      title: "Create a Todo",
+      desc: "Create your first todo... Click on the '+' in the bottom-right corner to add new todo!",
+      date: todaysDate,
       priority: "low"
     },
     {
-      title: "Brush teeth",
-      desc: "Brush your teeth before bed!",
-      date: new Date(2024, 11, 1),
+      title: "Finish Odin Course",
+      desc: "Aim to finish the Odin course by next year!",
+      date: new Date(todaysDate.getFullYear()+1, 1, 1),
       priority: "high"
     },
     {
-      title: "Take dog for a walk",
-      desc: "Take the dog for a walk at the park",
-      date: new Date(2025, 0, 1),
+      title: "Go to the Gym",
+      desc: "Go get a workout in!",
+      date: new Date(todaysDate.getFullYear(), todaysDate.getMonth(), todaysDate.getDate()+1),
       priority: "medium"
     }
   ]

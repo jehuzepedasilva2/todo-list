@@ -6,55 +6,6 @@
   font-style: normal;
 }
 
-/* :root {
-  --bg-color: #FFFFFF;
-  --left-bg-color: #F3F4F6;
-  --right-bg-color: #E5E7EB;
-  --right-top-bg-color: #D1D5DB;
-  --right-content-bg-color: #E5E7EB;
-  --card-color: #F9FAFB;
-  --primary-color: #0366D6;
-  --accent-color: #D97706; 
-  --text-color: #1F2937;
-  --highlight-color: #10B981;
-  --completed-task-color: #6EE7B7;
-  --svg-fill-color: #1c1d1d;
-  --modal-bg-color: #E5E7EB;
-  --text-color-modal: #1F2937;  
-  --high-priority-border-color: #EF4444;
-  --medium-priority-border-color: #F59E0B;
-  --low-priority-border-color: #34D399;
-  --crossed-out-text: #9CA3AF7d;
-  --box-shadow-cards-01: rgba(0, 0, 0, 0.1);
-  --box-shadow-cards-02: rgba(0, 0, 0, 0.2); 
-  --completed-all-todo-bg: rgba(34, 197, 94, 0.1); 
-} */
-
-
-:root {
-  --bg-color: #0D1117;
-  --primary-color: #58A6FF;
-  --accent-color: #F0A500;
-  --text-color: #FFFFFF;
-  --highlight-color: #3FB950;
-  --completed-task-color: #34D399;
-  --left-bg-color: #161B22;
-  --right-bg-color: #0D1117;
-  --right-top-bg-color: #1A1E26;
-  --right-content-bg-color: #0D1117;
-  --svg-fill-color: #161B22;
-  --card-color: #1F252C;
-  --high-priority-border-color: #FF4D4D;
-  --medium-priority-border-color: #FFB347;
-  --low-priority-border-color: #4CAF50;
-  --crossed-out-text: #8381817d;
-  --modal-bg-color: #3f4249;
-  --text-color-modal: #161B22;
-  --box-shadow-cards-01: rgba(0, 0, 0, 0.3);
-  --box-shadow-cards-02: rgba(0, 0, 0, 0.5);
-  --completed-all-todo-bg:  rgba(0, 128, 0, 0.1)
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -408,7 +359,7 @@ button.add-project:active {
   justify-content: center;
   font-size: 6rem;
   position: fixed;
-  bottom: 12px;
+  bottom: 15px;
   right: 0;
   cursor: pointer;
   transition: transform 0.3s ease;

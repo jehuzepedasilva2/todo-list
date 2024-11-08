@@ -1,4 +1,6 @@
 import { displayTodayTodos, displayAllTodos, displayAllProjects } from "./changeDOM.js";
+import createUser from "./createUser.js";
+import handleLeftButton from "./handleLeftButtons.js";
 import Todos from "./todos.js";
 import CachedDOM from "./cachedDOM";
 
@@ -37,7 +39,7 @@ const darkTheme = {
   '--right-bg-color': '#0D1117',
   '--right-top-bg-color': '#1A1E26',
   '--right-content-bg-color': '#0D1117',
-  '--svg-fill-color': '#161B22',
+  '--svg-fill-color': '#FFFFFF',
   '--card-color': '#1F252C',
   '--high-priority-border-color': '#FF4D4D',
   '--medium-priority-border-color': '#FFB347',
@@ -49,6 +51,18 @@ const darkTheme = {
   '--box-shadow-cards-02': 'rgba(0, 0, 0, 0.5)',
   '--completed-all-todo-bg': 'rgba(0, 128, 0, 0.1)'
 };
+
+function start() {
+  const leftButtons = CachedDOM.cachedLeftButtons;
+  const userObj = createUser();
+  leftButtons.forEach(btn => {
+    btn.addEventListener("click", () => handleLeftButton(userObj, btn, leftButtons));
+  });
+  handleLeftButton(userObj, leftButtons[0], leftButtons); // start off at today
+  startTheme(1);
+  handleModalCalenderUpdate();
+  handleAddTodosModal(userObj);
+}
 
 function startTheme(x) {
   if (x === 1) {
@@ -235,6 +249,6 @@ export default (function eventHandler() {
     handleAllTaskCompleteButton,
     handleAllTaskDeleteButton,
     handleCloudScene,
-    startTheme
+    start
   }
 })();

@@ -6,7 +6,6 @@ function removeButtonLook(leftButtons) {
     btn.classList.remove("new-style");
     if (btn.classList[1] === "user-added") {
       btn.style.backgroundColor = btn.getAttribute("data-initial-color");
-      console.log(btn.getAttribute("data-initial-color"));
     }
   });
 }
@@ -30,10 +29,9 @@ export default function handleLeftButton(user, btn, leftButtons) {
   if (btn.classList.contains("add-project")) {
     return;
   }
-  console.log(leftButtons);
-  removeButtonLook(leftButtons);   
-  console.log(leftButtons); 
+  removeButtonLook(leftButtons);  
+  btn.classList.add("new-style");  
+  console.log(btn);
   display(user, btn);   
-  btn.classList.add("new-style"); 
   handleEvents.addRightTop(); 
 }

@@ -1,4 +1,4 @@
-function createTodo(name, title, description, dueDate, priority) {
+function createTodo(title, description, dueDate, priority) {
   return {
     title: title, 
     description: description,
@@ -8,8 +8,8 @@ function createTodo(name, title, description, dueDate, priority) {
   }
 }
 
-function addTodosProj({ projects }, title, description, dueDate, priority) {
-  projects.projectName.todos.push(
+function addTodosProj({ projects }, name, title, description, dueDate, priority) {
+  projects[name].todos.push(
     createTodo(title, description, dueDate, priority)
   );
 }

@@ -140,6 +140,8 @@ function handleDeleteProjButton(user, btn, projName) {
     const leftContentThree = cachedDOM.cachedLeftContentThree;
     leftContentThree.removeChild(btn);
     delete user.projects[projName];
+    const allProjBtn = document.querySelector(".all-projects");
+    handleLeftButton(user, allProjBtn, "");
    })
 }
 
@@ -157,11 +159,12 @@ function addButtonToLeftContentThree(btnName,  unsanitizedBtnName, user) {
   newBtn.style.cssText = `display: flex; justify-content: space-between; align-items:center; background-color: ${color};`;
   
   newBtn.innerHTML = `
-    ${unsanitizedBtnName}
-    <svg class="delete-proj-btn" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
-      <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
-    </svg>
-  `;
+  ${unsanitizedBtnName}
+  <svg class="delete-proj-btn" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF" onclick="event.stopPropagation()">
+    <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
+  </svg>
+`;
+
   
   newBtn.classList.add(`${btnName}-button`, "user-added", "static");
   leftContentThree.appendChild(newBtn);
@@ -171,6 +174,8 @@ function addButtonToLeftContentThree(btnName,  unsanitizedBtnName, user) {
   });
 
   handleDeleteProjButton(user, newBtn, btnName);
+  const allProjBtn = document.querySelector(".all-projects");
+  handleLeftButton(user, allProjBtn, "");
 }
 
 
@@ -179,10 +184,14 @@ function handleSaveProjModal(userObj, modal) {
   const sanitizedProjName = inputValue.replace(/[^a-zA-Z0-9-_]/g, '');
 
   addProjName(userObj, sanitizedProjName);
+
+  addTodosProj(userObj, sanitizedProjName, "suck me off", "put this giant meat stick in your mouth big boy!", new Date(), "low"); //! remove
+
   addButtonToLeftContentThree(sanitizedProjName, inputValue, userObj);
   clearProjModal(modal);
 
-  console.log(userObj);
+  // console.log(userObj); // !remove
+  // console.log(userObj.projects[sanitizedProjName].todos[0]); //! remove
 }
 
 function handleAddProject(userObj) {

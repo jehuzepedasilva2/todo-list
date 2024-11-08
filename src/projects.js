@@ -1,16 +1,23 @@
-function createTodo(title, description, dueDate, priority) {
+function createTodo(name, title, description, dueDate, priority) {
   return {
     title: title, 
     description: description,
     dueDate: dueDate,
     priority: priority,
+    isComplete: false,
   }
 }
 
 function addTodosProj({ projects }, title, description, dueDate, priority) {
-  projects.push(
+  projects.projectName.todos.push(
     createTodo(title, description, dueDate, priority)
   );
 }
 
-export { addTodosProj };
+function addProjName({ projects }, name) {
+  projects[name] = {
+    todos: []
+  };
+}
+
+export { addTodosProj, addProjName };

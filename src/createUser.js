@@ -3,7 +3,7 @@ import Todos from "./todos.js";
 function createUser() {
   const userObj = {
     todos: [], 
-    projects: [],
+    projects: {},
   };
   const todaysDate = new Date();
   const sampleTasks = [

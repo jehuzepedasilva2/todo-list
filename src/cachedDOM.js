@@ -29,12 +29,16 @@ function getTodoCards() {
   return document.querySelectorAll(".todo-card");
 }
 
-function getModal() {
-  return document.getElementById("my-modal");
+function getAddTodoModal() {
+  return document.getElementById("add-todo-modal");
 }
 
-function getModalSaveButton() {
+function getModalTodoSaveButton() {
   return document.getElementById("save-task-btn");
+}
+
+function getModalProjSaveButton() {
+  return document.getElementById("save-proj-btn");
 }
 
 function getAddProjectButton() {
@@ -43,6 +47,10 @@ function getAddProjectButton() {
 
 function getLeftContentThree() {
   return document.querySelector(".left-content-three");
+}
+
+function getAddProjectModal() {
+  return document.getElementById("add-project-modal");
 }
 
 export default (function getDOM() {
@@ -54,9 +62,11 @@ export default (function getDOM() {
     cachedRightContent: getRightContent(),
     cachedAddTodoButton: getAddTodoButton(),
     cachedTodoCards: getTodoCards(),
-    cachedModal: getModal(), 
-    cachedModalSaveButton: getModalSaveButton(),
+    cachedTodoModal: getAddTodoModal(), 
+    cachedModalTodoSaveButton: getModalTodoSaveButton(),
     cachedAddProjectButton: getAddProjectButton(),
     cachedLeftContentThree: getLeftContentThree(),
+    cachedProjectModal: getAddProjectModal(),
+    cachedModalProjSaveButton: getModalProjSaveButton(),
   };
 })();

@@ -145,14 +145,6 @@ button.add-project:active {
   background-color: var(--highlight-color);
 }
 
-.clouds-container {
-  padding-top: 10px;
-  padding-left: 25px;
-  padding-bottom: 5px;
-  display: flex;
-  gap: 20px;
-}
-
 .right-top {
   height: 15%;
   display: flex;
@@ -451,7 +443,8 @@ input[type="checkbox"]:checked:after {
   animation: slideIn 0.3s;
 }
 
-.close {
+.close-todo, 
+.close-proj {
   position: absolute;
   top: 10px;
   right: 15px;
@@ -501,9 +494,13 @@ input[type="checkbox"]:checked:after {
   opacity: .5;
 }
 
-#my-modal label {
+.modal label {
   color: var(--text-color); /* Ensures text remains readable */
   font-size: large;
+}
+
+.delete-proj-btn:hover {
+  transform: scale(1.2);
 }
 
 @keyframes slideIn {
@@ -532,6 +529,14 @@ input[type="checkbox"]:checked:after {
   --circle-size-three-03: 55px;
   --cloud-width-one-03: 130px;
   --cloud-bg-color-03: #7dd3fc;
+}
+
+.clouds-container {
+  padding-top: 10px;
+  padding-left: 25px;
+  padding-bottom: 5px;
+  display: flex;
+  gap: 20px;
 }
 
 .clouds {

@@ -2,7 +2,15 @@ import { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop } f
 import createUser from "./createUser.js";
 import handleLeftButton from "./handleLeftButtons.js";
 import Todos from "./todos.js";
-import CachedDOM from "./cachedDOM";
+import cachedDOM from "./cachedDOM";
+import { addProjName, addTodosProj } from "./projects.js";
+
+const colors = Array.from({ length: 10 }, () => {
+  const r = Math.floor(180 + Math.random() * 60); // Red: 180-240
+  const g = Math.floor(180 + Math.random() * 60); // Green: 180-240
+  const b = Math.floor(180 + Math.random() * 60); // Blue: 180-240
+  return `rgb(${r}, ${g}, ${b})`;
+});
 
 const lightTheme = {
   '--bg-color': '#FFFFFF',
@@ -53,15 +61,16 @@ const darkTheme = {
 };
 
 function start() {
-  const leftButtons = CachedDOM.cachedLeftButtons;
+  const leftButtons = cachedDOM.cachedLeftButtons;
   const userObj = createUser();
   leftButtons.forEach(btn => {
     btn.addEventListener("click", () => handleLeftButton(userObj, btn, leftButtons));
   });
   handleLeftButton(userObj, leftButtons[0], leftButtons); // start off at today
   startTheme(1);
-  handleModalCalenderUpdate();
-  handleAddTodosModal(userObj);
+  modalCalendarUpdate();
+  handleAddTodos(userObj);
+  handleAddProject(userObj);
 }
 
 function startTheme(x) {
@@ -125,6 +134,82 @@ function undoCrossOutTodo(card, todoObj) {
   }, 10);
 }
 
+function handleDeleteProjButton(user, btn, projName) {
+   const delBtn = btn.querySelector(".delete-proj-btn");
+   delBtn.addEventListener("click", () => {
+    const leftContentThree = cachedDOM.cachedLeftContentThree;
+    leftContentThree.removeChild(btn);
+    delete user.projects[projName];
+   })
+}
+
+function clearProjModal(modal) {
+  const inputArea = modal.querySelector("#proj-name");
+  if (inputArea) inputArea.value = "";
+  modal.style.display = 'none';
+}
+
+function addButtonToLeftContentThree(btnName,  unsanitizedBtnName, user) {
+  const leftContentThree = cachedDOM.cachedLeftContentThree;
+  const newBtn = document.createElement("button");
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  newBtn.setAttribute("data-initial-color", `${color}`);
+  newBtn.style.cssText = `display: flex; justify-content: space-between; align-items:center; background-color: ${color};`;
+  
+  newBtn.innerHTML = `
+    ${unsanitizedBtnName}
+    <svg class="delete-proj-btn" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
+      <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
+    </svg>
+  `;
+  
+  newBtn.classList.add(`${btnName}-button`, "user-added", "static");
+  leftContentThree.appendChild(newBtn);
+
+  newBtn.addEventListener("click", () => {
+    handleLeftButton(user, newBtn, "");
+  });
+
+  handleDeleteProjButton(user, newBtn, btnName);
+}
+
+
+function handleSaveProjModal(userObj, modal) {
+  const inputValue = modal.querySelector("#proj-name").value;
+  const sanitizedProjName = inputValue.replace(/[^a-zA-Z0-9-_]/g, '');
+
+  addProjName(userObj, sanitizedProjName);
+  addButtonToLeftContentThree(sanitizedProjName, inputValue, userObj);
+  clearProjModal(modal);
+
+  console.log(userObj);
+}
+
+function handleAddProject(userObj) {
+  const modal = cachedDOM.cachedProjectModal;
+  const openModalBtn = cachedDOM.cachedAddProjectButton;
+  const closeModalBtn = document.querySelector(".close-proj");
+  const saveButton = cachedDOM.cachedModalProjSaveButton;
+
+  saveButton.addEventListener("click", () => handleSaveProjModal(userObj, modal));
+
+  openModalBtn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  closeModalBtn.onclick = function() {
+    clearProjModal(modal);
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      clearProjModal(modal)
+      modal.style.display = "none";
+    }
+  }
+}
+
 // here logic will have to change when we have more projects, how to ensure that we display to the correct tab? have a unique id for each tab
 // is probably the move here, we iterate over the tabs and find the one that also has the new-style class, then make a function in 
 // changeDOM that takes in the user obj and the the tab that we want to display in.
@@ -157,15 +242,15 @@ function handleCheckbox(deleteButton, card, todoObj, checkbox, isReRender=false)
   }
 }
 
-function handleModalCalenderUpdate() {
-  const modal = CachedDOM.cachedModal;
+function modalCalendarUpdate() {
+  const modal = cachedDOM.cachedTodoModal;
   const dateArea = modal.querySelector('#task-date');
   const todaysDate = new Date();
   dateArea.setAttribute("value", `${todaysDate.getFullYear()}-${todaysDate.getMonth()+1}-${todaysDate.getDate()}`);
   dateArea.setAttribute("min", `${todaysDate.getFullYear()}-${todaysDate.getMonth()+1}-${todaysDate.getDate()}`);
 }
 
-function clearModal(modal) {
+function clearTodoModal(modal) {
   const inputArea = modal.querySelector('#task-name');
   const textArea = modal.querySelector('#task-description');
   const dateArea = modal.querySelector('#task-date');
@@ -179,7 +264,7 @@ function clearModal(modal) {
   modal.style.display = 'none';
 }
 
-function handleSaveModal(userObj, modal) {
+function handleSaveTodoModal(userObj, modal) {
   const inputAreaValue = modal.querySelector('#task-name').value;
   const textAreaValue = modal.querySelector('#task-description').value;
   const dateArea = modal.querySelector('#task-date').value;
@@ -188,33 +273,32 @@ function handleSaveModal(userObj, modal) {
   Todos.addTodo(userObj, inputAreaValue, textAreaValue, new Date(year, month-1, date), prioritySelectValue);
   const originTab = document.querySelector(".new-style").classList[0];
   chooseTab(userObj, originTab);
-  clearModal(modal);
+  clearTodoModal(modal);
 }
 
-function handleAddTodosModal(userObj) {
-  const modal = CachedDOM.cachedModal;
-  const openModalBtn = CachedDOM.cachedAddTodoButton;
-  const closeModalBtn = document.querySelector(".close");
-  const saveButton = CachedDOM.cachedModalSaveButton;
+function handleAddTodos(userObj) {
+  const modal = cachedDOM.cachedTodoModal;
+  const openModalBtn = cachedDOM.cachedAddTodoButton;
+  const closeModalBtn = document.querySelector(".close-todo");
+  const saveButton = cachedDOM.cachedModalTodoSaveButton;
 
-  saveButton.addEventListener("click", () => handleSaveModal(userObj, modal));
+  saveButton.addEventListener("click", () => handleSaveTodoModal(userObj, modal));
 
   openModalBtn.onclick = function() {
     modal.style.display = "block";
   }
 
   closeModalBtn.onclick = function() {
-    clearModal(modal);
+    clearTodoModal(modal);
     modal.style.display = "none";
   }
 
   window.onclick = function(event) {
     if (event.target === modal) {
-      clearModal(modal)
+      clearTodoModal(modal)
       modal.style.display = "none";
     }
   }
-
 }
 
 function handleAllTaskCompleteButton(todoObj, button, card) {
@@ -247,12 +331,13 @@ export default (function eventHandler() {
   return {
     handleCheckbox,
     handleDeleteTodos,
-    handleAddTodosModal,
-    handleModalCalenderUpdate, 
+    handleAddTodos,
+    modalCalendarUpdate, 
     handleAllTaskCompleteButton,
     handleAllTaskDeleteButton,
     handleCloudScene,
     start,
     addRightTop,
+    handleAddProject,
   }
 })();

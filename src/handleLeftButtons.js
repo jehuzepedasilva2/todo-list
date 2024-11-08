@@ -1,4 +1,4 @@
-import { displayAllTodos, displayTodayTodos, displayAllProjects } from "./changeDOM.js";
+import { displayAllTodos, displayTodayTodos, displayAllProjects, displayUserProjects } from "./changeDOM.js";
 import handleEvents from "./handleEvents.js";
 
 function removeButtonLook(leftButtons) {
@@ -11,16 +11,20 @@ function removeButtonLook(leftButtons) {
 }
 
 function display(user, btn) {
-  if (btn.classList[0] === "today") {
+  const addTodoButton = document.querySelector(".add-todo");
+  if (btn.classList.contains("today")) {
+    addTodoButton.style.visibility = "visible";
     displayTodayTodos(user);
-  } else if (btn.classList[0] === "all-tasks") {
+  } else if (btn.classList.contains("all-tasks")) {
+    addTodoButton.style.visibility = "visible";
     displayAllTodos(user);
-  } else if (btn.classList[0] === "all-projects") {
+  } else if (btn.classList.contains("all-projects")) {
+    addTodoButton.style.visibility = "hidden";
     displayAllProjects(user);
   } else {
+    addTodoButton.style.visibility = "visible";
     btn.style.backgroundColor = "";
-    console.log("not implemented yet, line 18 in display (handleLeftButtons)");
-    // displayUserProject(user)
+    displayUserProjects(user)
   }
 }
 
@@ -31,7 +35,6 @@ export default function handleLeftButton(user, btn, leftButtons) {
   }
   removeButtonLook(leftButtons);  
   btn.classList.add("new-style");  
-  console.log(btn);
   display(user, btn);   
   handleEvents.addRightTop(); 
 }

@@ -185,13 +185,9 @@ function handleSaveProjModal(userObj, modal) {
 
   addProjName(userObj, sanitizedProjName);
 
-  addTodosProj(userObj, sanitizedProjName, "suck me off", "put this giant meat stick in your mouth big boy!", new Date(), "low"); //! remove
-
   addButtonToLeftContentThree(sanitizedProjName, inputValue, userObj);
   clearProjModal(modal);
 
-  // console.log(userObj); // !remove
-  // console.log(userObj.projects[sanitizedProjName].todos[0]); //! remove
 }
 
 function handleAddProject(userObj) {

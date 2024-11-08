@@ -75,15 +75,21 @@ function addRightTop() {
   handleEvents.handleCloudScene();
 }
 
+function updateRightContentClasses(rightContent, classToAdd) {
+  const classes = rightContent.classList;
+  classes.forEach(c => {
+    if (c !== "right-content") {
+      rightContent.classList.remove(c);
+    }
+  })
+  rightContent.classList.add(classToAdd);
+}
+
 function displayTodayTodos(user) {
   sortUserTodosByDate(user);
   let todos = user.todos;
   const rightContent = cachedDOM.cachedRightContent;
-  // this is probably not gonna work when there are multiple tabs we could be coming from (i.e more projects)
-  if (rightContent.classList.contains("all")) {
-    rightContent.classList.remove("all");
-  }
-  rightContent.classList.add("daily")
+  updateRightContentClasses(rightContent, "daily")
   rightContent.innerHTML = ``;
 
   for (let i = 0; i < todos.length; i++) {
@@ -150,10 +156,7 @@ function displayAllTodos(user) {
   sortUserTodosByDate(user);
   let todos = user.todos;
   const rightContent = cachedDOM.cachedRightContent;
-  if (rightContent.classList.contains("daily")) {
-    rightContent.classList.remove("daily");
-  }
-  rightContent.classList.add("all")
+  updateRightContentClasses(rightContent, "all");
   rightContent.innerHTML = ``;
 
   for (let i = 0; i < todos.length; i++) {
@@ -202,8 +205,53 @@ function displayAllTodos(user) {
 // but how to make it so that when we add a task to a project we land in the same page project was originally on?
 function displayAllProjects(userObj) {
   const rightContent = cachedDOM.cachedRightContent;
+  updateRightContentClasses(rightContent, "all-pro");
+  // sort here
   rightContent.innerHTML = "";
-  console.log("not implemented yet!")
+  const projects = userObj.projects // this is an object
+  for (const projName in projects) {
+    const projsTodoList = projects[projName].todos; // this is a list of objects
+    const card = document.createElement("div");
+    card.classList.add(`all-project-card`, `all-project-card-${projName}`);
+    card.innerHTML = `
+      <div class="all-project-card-top">
+        <h1>${projName}</h1>
+      </div>`;
+    let deleteButton, checkbox;
+    for (let i = 0; i < projsTodoList.length; i++) {
+      const todoObj = projsTodoList[i];
+      const innerCard = document.createElement("div");
+      innerCard.classList.add("all-project-card-bottom", "todo-card", todoObj.priority);
+      innerCard.innerHTML = `
+      <div class="all-project-card-bottom-left todo-card-left">
+        <form>
+          <input type="checkbox" class="check-box" id="check-proj-${i}" name="is_completed">
+        </form>
+      </div>
+      <div class="all-project-card-bottom-middle todo-card-middle">
+        <h2>${todoObj.title}</h2>
+        <h4>${todoObj.description}</h4>
+      </div>
+      <div class="all-project-card-bottom-right todo-card-right">
+        <button class="delete-todo-proj-${i}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFFFFF">
+            <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
+          </svg>
+        </button>
+      </div>`;
+      card.appendChild(innerCard)
+      checkbox = card.querySelector(`#check-proj-${i}`);
+      deleteButton = card.querySelector(`.delete-todo-proj-${i}`);   
+      deleteButton.style.visibility = "hidden"; 
+      deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projsTodoList, i, user));
+      checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, card, todoObj, checkbox));
+    }
+    rightContent.appendChild(card);
+  }
 }
 
-export { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop };
+function displayUserProjects(userObj) {
+  console.log("not implemented", userObj);
+}
+
+export { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop, displayUserProjects };

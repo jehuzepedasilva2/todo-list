@@ -16,6 +16,7 @@ function addTodosProj({ projects }, name, title, description, dueDate, priority)
 
 function addProjName({ projects }, name) {
   projects[name] = {
+    name: name,
     todos: []
   };
 }

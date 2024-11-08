@@ -1,4 +1,5 @@
 import { displayTodayTodos, displayAllTodos, displayAllProjects } from "./changeDOM.js";
+import { convertDateToReadable, getDayFromIndex } from "./dateManipulation.js";
 import createUser from "./createUser.js";
 import handleLeftButton from "./handleLeftButtons.js";
 import Todos from "./todos.js";
@@ -95,6 +96,70 @@ function handleCloudScene() {
     }
   })
 }
+
+function removeRightTop() {
+  const rightTop = CachedDOM.cachedRightTop;
+  rightTop.innerHTML = "";
+}
+
+function addRightTop() {
+  const sun = document.querySelector(".sun");
+  const moon = document.querySelector(".moon");
+  let sunClasses = `sun vis`;
+  let moonClasses = "moon";
+  if (sun && moon) {
+    sunClasses = sun.classList.toString();
+    moonClasses = moon.classList.toString();
+  }
+  removeRightTop();
+  const rightTop = CachedDOM.cachedRightTop;
+  const todaysDate = new Date();
+  const dayOfWeek = getDayFromIndex(todaysDate.getDay());
+  const [month, day, year] = convertDateToReadable(todaysDate).replace(",", "").split(" ");
+  rightTop.innerHTML = `
+  <div class="clouds-container">
+    <div class="clouds">
+      <div class="cloud-container-one">
+        <div class="circle" id="circle-01"></div>
+        <div class="circle" id="circle-02"></div>
+      </div>
+      <div class="cloud-container-two">
+        <div class="circle" id="circle-03"></div>
+        <div class="circle" id="circle-04"></div>
+      </div>
+      <div class="cloud-container-three">
+        <div class="circle" id="circle-05"></div>
+        <div class="circle" id="circle-06"></div>
+      </div>
+      <div class="${sunClasses}">
+        <div class="sun-inner-01">
+          <div class="sun-inner-02">
+            <div class="sun-inner-03"></div>
+          </div>
+        </div>
+      </div>
+      <div class="${moonClasses}">
+        <div class="moon-inner-01">
+          <div class="moon-inner-02">
+            <div class="crater-01"></div>
+            <div class="crater-02"></div>
+            <div class="crater-03"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right-top-header">
+    <div class="header-top">
+      <h1>${dayOfWeek}</h1>
+    </div>
+    <div class="header-bottom">
+      <h3>${month} ${day}, ${year}</h3>
+    </div>
+  </div>`;
+  handleCloudScene();
+}
+
 
 function crossOutTodo(card, todoObj, isRerender) {
   const middle = card.querySelector(".todo-card-middle");
@@ -249,6 +314,7 @@ export default (function eventHandler() {
     handleAllTaskCompleteButton,
     handleAllTaskDeleteButton,
     handleCloudScene,
-    start
+    start,
+    addRightTop
   }
 })();

@@ -80,18 +80,26 @@ body {
   gap: 10px;
 }
 
+.left-content-two {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 button.add-project {
   appearance: none;
   color: var(--text-color);
   padding: 5px;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
   font-size: 1.5rem;
   appearance: none;
-  background-color: var(--cloud-bg-color-03);
+  /* background-color: var(--cloud-bg-color-03); */
+  background: none;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -249,9 +257,6 @@ button.add-project:active {
   appearance: none;
   background: none;
   border: none;
-  height: 20%;
-  border-radius: 10px;
-  color: var(--card-color);
   cursor: pointer;
 }
 
@@ -264,22 +269,22 @@ button.add-project:active {
 }
 
 .all-todo-card.checked {
-  background-color: rgba(0, 128, 0, 0.1); /* light green overlay */
+  background-color: rgba(0, 128, 0, 0.1);
 }
 
 .all-todo-card.checked .all-todo-title h2,
 .all-todo-card.checked .all-todo-desc h4 {
   text-decoration: line-through;
-  color: var(--crossed-out-text); /* muted color for completed text */
+  color: var(--crossed-out-text);
 }
 
 .all-todo-card.checked::after {
-  content: '✔ Completed';
+  content: '✔ Completed !';
   position: absolute;
   bottom: 27.5px;
   left: 60px;
   color: #008000;
-  font-size: 0.8em;
+  font-size: 1em;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 2px 6px;
   border-radius: 4px;

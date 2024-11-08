@@ -9,21 +9,15 @@ function createUser() {
   const sampleTasks = [
     {
       title: "Create a Todo",
-      desc: "Create your first todo... Click on the '+' in the bottom-right corner to add new todo!",
+      desc: "Create your first todo by clicking the + button in the bottom-right corner!",
       date: todaysDate,
-      priority: "low"
-    },
-    {
-      title: "Finish Odin Course",
-      desc: "Aim to finish the Odin course by next year!",
-      date: new Date(todaysDate.getFullYear()+1, 1, 1),
       priority: "high"
     },
     {
-      title: "Go to the Gym",
-      desc: "Go get a workout in!",
-      date: new Date(todaysDate.getFullYear(), todaysDate.getMonth(), todaysDate.getDate()+1),
-      priority: "medium"
+      title: "Create a Project",
+      desc: "Create your first Project by clicking the + next to the Projects heading button in the left panel!",
+      date: todaysDate,
+      priority: "high"
     }
   ]
   for (let i = 0; i < sampleTasks.length; i++) {

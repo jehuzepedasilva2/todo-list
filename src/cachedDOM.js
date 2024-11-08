@@ -37,6 +37,14 @@ function getModalSaveButton() {
   return document.getElementById("save-task-btn");
 }
 
+function getAddProjectButton() {
+  return document.querySelector(".add-project");
+}
+
+function getLeftContentThree() {
+  return document.querySelector(".left-content-three");
+}
+
 export default (function getDOM() {
   return {
     cachedBody: getBody(), 
@@ -48,5 +56,7 @@ export default (function getDOM() {
     cachedTodoCards: getTodoCards(),
     cachedModal: getModal(), 
     cachedModalSaveButton: getModalSaveButton(),
+    cachedAddProjectButton: getAddProjectButton(),
+    cachedLeftContentThree: getLeftContentThree(),
   };
 })();

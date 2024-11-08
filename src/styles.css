@@ -198,6 +198,7 @@ button.add-project:active {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  gap: 8px;
 }
 
 .all-todo-date {
@@ -371,11 +372,6 @@ h1, h2 {
 
 svg {
   fill: var(--svg-fill-color);
-}
-
-.todo-card-right button path, 
-.todo-card-right button circle {
-  stroke: var(--svg-fill-color)
 }
 
 input[type="checkbox"] {

@@ -1,11 +1,85 @@
 import cachedDOM from "./cachedDOM.js";
 import handleEvents from "./handleEvents.js";
-import { convertDateToReadable, sortUserTodosByDate, isToday } from "./dateManipulation.js";
+import { convertDateToReadable, sortUserTodosByDate, isToday, getDayFromIndex } from "./dateManipulation.js";
+
+function addRightTop() {
+  const sun = document.querySelector(".sun");
+  const moon = document.querySelector(".moon");
+  let sunClasses = `sun vis`;
+  let moonClasses = "moon";
+  if (sun && moon) {
+    sunClasses = sun.classList.toString();
+    moonClasses = moon.classList.toString();
+  }
+  const rightTop = cachedDOM.cachedRightTop;
+  const todaysDate = new Date();
+  const dayOfWeek = getDayFromIndex(todaysDate.getDay());
+  const [month, day, year] = convertDateToReadable(todaysDate).replace(",", "").split(" ");
+  rightTop.innerHTML = `
+  <div class="clouds-container">
+    <div class="clouds">
+      <div class="cloud-container-one">
+        <div class="circle" id="circle-01"></div>
+        <div class="circle" id="circle-02"></div>
+      </div>
+      <div class="cloud-container-two">
+        <div class="circle" id="circle-03"></div>
+        <div class="circle" id="circle-04"></div>
+      </div>
+      <div class="cloud-container-three">
+        <div class="circle" id="circle-05"></div>
+        <div class="circle" id="circle-06"></div>
+      </div>
+      <div class="${sunClasses}">
+        <div class="sun-inner-01">
+          <div class="sun-inner-02">
+            <div class="sun-inner-03"></div>
+          </div>
+        </div>
+      </div>
+      <div class="${moonClasses}">
+        <div class="moon-inner-01">
+          <div class="moon-inner-02">
+            <div class="crater-01"></div>
+            <div class="crater-02"></div>
+            <div class="crater-03"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bird-container">
+    <div class="bird-01">
+      <div class="left-wing"></div>
+      <div class="right-wing"></div>
+    </div>
+    <div class="bird-02">
+      <div class="left-wing"></div>
+      <div class="right-wing"></div>
+    </div>
+    <div class="bird-03">
+      <div class="left-wing"></div>
+      <div class="right-wing"></div>
+    </div>
+  </div>
+
+  </div>
+  <div class="right-top-header">
+    <div class="header-top">
+      <h1>${dayOfWeek}</h1>
+    </div>
+    <div class="header-bottom">
+      <h3>${month} ${day}, ${year}</h3>
+    </div>
+  </div>`;
+  handleEvents.handleCloudScene();
+}
 
 function displayTodayTodos(user) {
   sortUserTodosByDate(user);
   let todos = user.todos;
   const rightContent = cachedDOM.cachedRightContent;
+  // this is probably not gonna work when there are multiple tabs we could be coming from (i.e more projects)
   if (rightContent.classList.contains("all")) {
     rightContent.classList.remove("all");
   }
@@ -72,7 +146,6 @@ function displayTodayTodos(user) {
   }
 }
 
-// gonna be a little different okay for now
 function displayAllTodos(user) {
   sortUserTodosByDate(user);
   let todos = user.todos;
@@ -125,10 +198,12 @@ function displayAllTodos(user) {
   }
 }
 
+// use classes "project p{i}"
+// but how to make it so that when we add a task to a project we land in the same page project was originally on?
 function displayAllProjects(userObj) {
   const rightContent = cachedDOM.cachedRightContent;
   rightContent.innerHTML = "";
   console.log("not implemented yet!")
 }
 
-export { displayTodayTodos, displayAllTodos, displayAllProjects };
+export { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop };

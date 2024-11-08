@@ -1,5 +1,4 @@
-import { displayTodayTodos, displayAllTodos, displayAllProjects } from "./changeDOM.js";
-import { convertDateToReadable, getDayFromIndex } from "./dateManipulation.js";
+import { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop } from "./changeDOM.js";
 import createUser from "./createUser.js";
 import handleLeftButton from "./handleLeftButtons.js";
 import Todos from "./todos.js";
@@ -12,7 +11,7 @@ const lightTheme = {
   '--right-top-bg-color': '#D1D5DB',
   '--right-content-bg-color': '#E5E7EB',
   '--card-color': '#F9FAFB',
-  '--primary-color': '#0366D6',
+  '--primary-color': '#58A6FF',
   '--accent-color': '#D97706',
   '--text-color': '#1F2937',
   '--highlight-color': '#10B981',
@@ -97,70 +96,6 @@ function handleCloudScene() {
   })
 }
 
-function removeRightTop() {
-  const rightTop = CachedDOM.cachedRightTop;
-  rightTop.innerHTML = "";
-}
-
-function addRightTop() {
-  const sun = document.querySelector(".sun");
-  const moon = document.querySelector(".moon");
-  let sunClasses = `sun vis`;
-  let moonClasses = "moon";
-  if (sun && moon) {
-    sunClasses = sun.classList.toString();
-    moonClasses = moon.classList.toString();
-  }
-  removeRightTop();
-  const rightTop = CachedDOM.cachedRightTop;
-  const todaysDate = new Date();
-  const dayOfWeek = getDayFromIndex(todaysDate.getDay());
-  const [month, day, year] = convertDateToReadable(todaysDate).replace(",", "").split(" ");
-  rightTop.innerHTML = `
-  <div class="clouds-container">
-    <div class="clouds">
-      <div class="cloud-container-one">
-        <div class="circle" id="circle-01"></div>
-        <div class="circle" id="circle-02"></div>
-      </div>
-      <div class="cloud-container-two">
-        <div class="circle" id="circle-03"></div>
-        <div class="circle" id="circle-04"></div>
-      </div>
-      <div class="cloud-container-three">
-        <div class="circle" id="circle-05"></div>
-        <div class="circle" id="circle-06"></div>
-      </div>
-      <div class="${sunClasses}">
-        <div class="sun-inner-01">
-          <div class="sun-inner-02">
-            <div class="sun-inner-03"></div>
-          </div>
-        </div>
-      </div>
-      <div class="${moonClasses}">
-        <div class="moon-inner-01">
-          <div class="moon-inner-02">
-            <div class="crater-01"></div>
-            <div class="crater-02"></div>
-            <div class="crater-03"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="right-top-header">
-    <div class="header-top">
-      <h1>${dayOfWeek}</h1>
-    </div>
-    <div class="header-bottom">
-      <h3>${month} ${day}, ${year}</h3>
-    </div>
-  </div>`;
-  handleCloudScene();
-}
-
-
 function crossOutTodo(card, todoObj, isRerender) {
   const middle = card.querySelector(".todo-card-middle");
   middle.style.cssText = "flex-direction: row;";
@@ -190,6 +125,9 @@ function undoCrossOutTodo(card, todoObj) {
   }, 10);
 }
 
+// here logic will have to change when we have more projects, how to ensure that we display to the correct tab? have a unique id for each tab
+// is probably the move here, we iterate over the tabs and find the one that also has the new-style class, then make a function in 
+// changeDOM that takes in the user obj and the the tab that we want to display in.
 function chooseTab(user, originTab) {
   if (originTab === "today") {
     displayTodayTodos(user)
@@ -315,6 +253,6 @@ export default (function eventHandler() {
     handleAllTaskDeleteButton,
     handleCloudScene,
     start,
-    addRightTop
+    addRightTop,
   }
 })();

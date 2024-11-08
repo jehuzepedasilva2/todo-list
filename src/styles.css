@@ -149,6 +149,8 @@ button.add-project:active {
   padding-top: 10px;
   padding-left: 25px;
   padding-bottom: 5px;
+  display: flex;
+  gap: 20px;
 }
 
 .right-top {
@@ -730,7 +732,8 @@ input[type="checkbox"]:checked:after {
   --crater-size-01: 10px;
   --crater-size-02: 20px;
   --crater-size-03: 15px;
-  --crater-box-shadow-color: #a3a5a9;
+  --crater-box-shadow-color-01: #a3a5a9;
+  --crater-box-shadow-color-02: #848485;
 }
 
 .moon, 
@@ -774,6 +777,12 @@ input[type="checkbox"]:checked:after {
   position: relative;
 }
 
+.crater-01,
+.crater-02, 
+.crater-03 {
+  box-shadow: inset 0px 0px 6px var(--crater-box-shadow-color-01);
+}
+
 .crater-01 {
   width: var(--crater-size-01);
   height: var(--crater-size-01);
@@ -782,7 +791,6 @@ input[type="checkbox"]:checked:after {
   position: absolute;
   top: 10px;
   left: 10px;
-  box-shadow: inset 0px 0px 2px var(--crater-box-shadow-color);
 }
 
 .crater-02 {
@@ -793,7 +801,6 @@ input[type="checkbox"]:checked:after {
   position: absolute;
   top: 24px;
   left: 20px;
-  box-shadow: inset 0px 0px 2px var(--crater-box-shadow-color);
 }
 
 .crater-03 {
@@ -804,8 +811,102 @@ input[type="checkbox"]:checked:after {
   position: absolute;
   top: 5px;
   left: 18px;
-  box-shadow: inset 0px 0px 2px var(--crater-box-shadow-color);
 }
 
+
+/* ------------------------------------------ BIRDS --------------------------------- */
+:root {
+  --bird-color: var(--text-color)
+}
+
+.bird-container {
+  position: relative;
+}
+
+.bird-01, 
+.bird-02, 
+.bird-03 {
+  position: relative;
+}
+
+.bird-01 .left-wing {
+  --c: 18px;
+  height: 20px;
+  aspect-ratio: 3/2;
+  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
+  background: var(--bird-color);
+  border-top-left-radius: var(--c);
+  border-top-right-radius: var(--c);
+}
+
+.bird-01 .right-wing {
+  --c: 18px; 
+  height: 20px;
+  aspect-ratio: 3/2;
+  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
+  background: var(--bird-color);;
+  border-top-left-radius: var(--c);
+  border-top-right-radius: var(--c);
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+
+.bird-02 {
+  position: absolute;
+  top: 20px;
+  left: 30px
+}
+
+.bird-02 .left-wing {
+  --c: 15px; 
+  height: 18px;
+  aspect-ratio: 3/2;
+  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
+  background:var(--bird-color);;
+  border-top-left-radius: var(--c);
+  border-top-right-radius: var(--c);
+}
+
+.bird-02 .right-wing {
+  --c: 15px; 
+  height: 18px;
+  aspect-ratio: 3/2;
+  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
+  background: var(--bird-color);;
+  border-top-left-radius: var(--c);
+  border-top-right-radius: var(--c);
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+
+.bird-03 {
+  bottom: 15px;
+  left: 70px;
+}
+
+.bird-03 .left-wing {
+  --c: 10px; 
+  height: 12px;
+  aspect-ratio: 3/2;
+  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
+  background: var(--bird-color);;
+  border-top-left-radius: var(--c);
+  border-top-right-radius: var(--c);
+}
+
+.bird-03 .right-wing {
+  --c: 10px; 
+  height: 12px;
+  aspect-ratio: 3/2;
+  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
+  background: var(--bird-color);;
+  border-top-left-radius: var(--c);
+  border-top-right-radius: var(--c);
+  position: absolute;
+  top: 0;
+  left: 12px;
+}
 
 

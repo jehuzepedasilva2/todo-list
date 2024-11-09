@@ -105,8 +105,7 @@ function handleCloudScene() {
   })
 }
 
-function crossOutTodo(card, todoObj, isRerender) {
-  const middle = card.querySelector(".todo-card-middle");
+function crossOutTodo(todoObj, middle, isRerender) {
   middle.style.cssText = "flex-direction: row;";
   middle.innerHTML = `
     <h2 class="crossed-out">${todoObj.title}</h2>
@@ -120,8 +119,7 @@ function crossOutTodo(card, todoObj, isRerender) {
   }
 }
 
-function undoCrossOutTodo(card, todoObj) {
-  const middle = card.querySelector(".todo-card-middle");
+function undoCrossOutTodo(todoObj, middle) {
   middle.style.cssText = "flex-direction: column;";  
   middle.innerHTML = `
     <h2 class="crossed-out">${todoObj.title}</h2>
@@ -238,18 +236,16 @@ function handleDeleteTodos(todos, i, user) {
   chooseTab(user, originTab);
 }
 
-function handleCheckbox(deleteButton, card, todoObj, checkbox, isReRender=false) {
+function handleCheckbox(deleteButton, todoObj, checkbox, middle, isReRender=false) {
   deleteButton.style.cssText = "appearance: none; background: none; border: none;";
-  const date = card.querySelector(".proj-card-middle-date");
+  console.log(checkbox.id, middle.id);
   if (checkbox.checked) {
-   if (date) date.style.visibility = "hidden";
     deleteButton.style.visibility = "visible";
     todoObj.isComplete = true;
-    crossOutTodo(card, todoObj, isReRender);
+    crossOutTodo(todoObj, middle, isReRender);
   } else {
     deleteButton.style.visibility = "hidden";
-    if (date) date.style.visibility = "visible";
-    undoCrossOutTodo(card, todoObj);
+    undoCrossOutTodo(todoObj, middle);
     todoObj.isComplete = false;
   }
 }

@@ -201,8 +201,8 @@ function displayAllTodos(user) {
   }
 }
 
-// use classes "project p{i}"
-// but how to make it so that when we add a task to a project we land in the same page project was originally on?
+
+// add functionaly to check off an item;
 function displayAllProjects(userObj) {
   const rightContent = cachedDOM.cachedRightContent;
   updateRightContentClasses(rightContent, "all-pro");
@@ -223,26 +223,33 @@ function displayAllProjects(userObj) {
       const innerCard = document.createElement("div");
       innerCard.classList.add("all-project-card-bottom", "todo-card", todoObj.priority);
       innerCard.innerHTML = `
-      <div class="all-project-card-bottom-left todo-card-left">
+      <div class="proj-card todo-card-left">
         <form>
-          <input type="checkbox" class="check-box" id="check-proj-${i}" name="is_completed">
+          <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
         </form>
       </div>
-      <div class="all-project-card-bottom-middle todo-card-middle">
-        <h2>${todoObj.title}</h2>
-        <h4>${todoObj.description}</h4>
+      <div class="proj-card-middle todo-card-middle">
+        <div class="proj-card-middle-left">
+          <h2>${todoObj.title}</h2>
+        </div>
       </div>
-      <div class="all-project-card-bottom-right todo-card-right">
-        <button class="delete-todo-proj-${i}">
+      <div class="proj-card-right todo-card-right">
+        <button class="delete-user-proj-${i}">
           <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFFFFF">
             <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
           </svg>
         </button>
-      </div>`;
-      card.appendChild(innerCard)
-      checkbox = card.querySelector(`#check-proj-${i}`);
-      deleteButton = card.querySelector(`.delete-todo-proj-${i}`);   
-      deleteButton.style.visibility = "hidden"; 
+      </div>
+      `;
+      card.appendChild(innerCard);
+      checkbox = card.querySelector(`#check-user-proj-${i}`);
+      deleteButton = card.querySelector(`.delete-user-proj-${i}`);    
+      if (!todoObj.isComplete) {
+        deleteButton.style.visibility = "hidden"; 
+      } else {
+        checkbox.checked = true;
+        handleEvents.handleCheckbox(deleteButton, card, todoObj, checkbox, true);
+      }
       deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projsTodoList, i, user));
       checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, card, todoObj, checkbox));
     }
@@ -250,8 +257,82 @@ function displayAllProjects(userObj) {
   }
 }
 
-function displayUserProjects(userObj) {
-  console.log("not implemented", userObj);
+function displayUserProjects(userObj, buttonName) {
+  const projName = buttonName.split("-")[0];
+  const rightContent = cachedDOM.cachedRightContent;
+  const projectTodos = userObj.projects[projName].todos;
+  updateRightContentClasses(rightContent, "user-projects");
+  rightContent.innerHTML = "";
+
+  for (let i = 0; i < projectTodos.length; i++) {
+    const todoObj = projectTodos[i];
+    const card = document.createElement("div");
+    card.classList.add(`proj-card`, `${todoObj.priority}`, `proj-card-${i}`, "todo-card");
+    const date = todoObj.dueDate;
+    const dayOfWeek = getDayFromIndex(date.getDay());
+    const [month, day, year] = convertDateToReadable(date).replace(",", "").split(" ");
+    let deleteButton, checkbox;
+    if (!todoObj.isComplete) {
+      card.innerHTML = `
+      <div class="proj-card todo-card-left">
+        <form>
+          <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
+        </form>
+      </div>
+      <div class="proj-card-middle todo-card-middle">
+        <div class="proj-card-middle-left">
+          <h2>${todoObj.title}</h2>
+          <h4>${todoObj.description}</h4>
+        </div>
+      </div>
+      <div class="proj-card-middle-date">
+        <h2>${month} ${day}, ${year}</h2>
+      </div>
+      <div class="proj-card-right todo-card-right">
+        <button class="delete-user-proj-${i}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFFFFF">
+            <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
+          </svg>
+        </button>
+      </div>
+      `;
+      checkbox = card.querySelector(`#check-user-proj-${i}`);
+      deleteButton = card.querySelector(`.delete-user-proj-${i}`);   
+      deleteButton.style.visibility = "hidden"; 
+    } else {
+      card.innerHTML = `
+      <div class="proj-card todo-card-left">
+        <form>
+          <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
+        </form>
+      </div>
+      <div class="proj-card-middle todo-card-middle">
+        <div class="proj-card-middle-left">
+          <h2>${todoObj.title}</h2>
+        </div>
+      </div>
+      <div class="proj-card-right todo-card-right">
+        <button class="delete-user-proj-${i}">
+          <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFFFFF">
+            <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z"/>
+          </svg>
+        </button>
+      </div>
+      `;
+      checkbox = card.querySelector(`#check-user-proj-${i}`);
+      deleteButton = card.querySelector(`.delete-user-proj-${i}`);    
+      checkbox.checked = true;
+      handleEvents.handleCheckbox(deleteButton, card, todoObj, checkbox, true);
+   }
+    deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(todos, i, user));
+    checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, card, todoObj, checkbox));     
+    rightContent.appendChild(card);
+  }
 }
 
 export { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop, displayUserProjects };
+
+// issues
+// 1. the if the boxed is checked, then we go to another tab, then uncheck, the date disappears, then if we go to another tab it re appears
+// 2. In all projects tab, it isn't rendering the project task correctly, and wont allow to check items off
+// 2. delete does not work for all task and user project tasks

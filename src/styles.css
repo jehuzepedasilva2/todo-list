@@ -956,4 +956,52 @@ input[type="checkbox"]:checked:after {
   text-align: center;
 }
 
+.right-content.user-projects {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 85%;
+  gap: 8px;
+}
+
+.proj-card {
+  display: flex;
+}
+
+.proj-card-left {
+  flex: 1;
+}
+
+.proj-card-middle-left {
+  flex: 3;
+}
+
+.proj-card-middle-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.middle-right-top {
+  flex: 1;
+}
+
+.middle-right-middle {
+  flex: 2;
+}
+
+.middle-right-bottom {
+  flex: 1;
+}
+
+.proj-card-right {
+  flex:1
+}
+
+.proj-card-middle-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 

@@ -24,7 +24,7 @@ function display(user, btn) {
   } else {
     addTodoButton.style.visibility = "visible";
     btn.style.backgroundColor = "";
-    displayUserProjects(user)
+    displayUserProjects(user, btn.classList[0]);
   }
 }
 

@@ -183,7 +183,11 @@ function handleSaveProjModal(userObj, modal) {
   const inputValue = modal.querySelector("#proj-name").value;
   const sanitizedProjName = inputValue.replace(/[^a-zA-Z0-9-_]/g, '');
 
+  // ! remove
   addProjName(userObj, sanitizedProjName);
+  addTodosProj(userObj, sanitizedProjName, "test", "test", new Date(), "low");
+  addTodosProj(userObj, sanitizedProjName, "test2", "test2", new Date(), "high");
+  addTodosProj(userObj, sanitizedProjName, "test3", "test3", new Date(), "medium");
 
   addButtonToLeftContentThree(sanitizedProjName, inputValue, userObj);
   clearProjModal(modal);
@@ -236,12 +240,15 @@ function handleDeleteTodos(todos, i, user) {
 
 function handleCheckbox(deleteButton, card, todoObj, checkbox, isReRender=false) {
   deleteButton.style.cssText = "appearance: none; background: none; border: none;";
+  const date = card.querySelector(".proj-card-middle-date");
   if (checkbox.checked) {
+   if (date) date.style.visibility = "hidden";
     deleteButton.style.visibility = "visible";
     todoObj.isComplete = true;
     crossOutTodo(card, todoObj, isReRender);
   } else {
     deleteButton.style.visibility = "hidden";
+    if (date) date.style.visibility = "visible";
     undoCrossOutTodo(card, todoObj);
     todoObj.isComplete = false;
   }

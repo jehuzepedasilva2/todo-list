@@ -381,21 +381,24 @@ svg {
 
 input[type="checkbox"] {
   appearance: none;
+  -webkit-appearance: none; /* For Safari */
   position: relative;
+  box-sizing: border-box;
 }
 
 input[type="checkbox"]::before {
   content: "◯";
-  font-size: 1.1rem
+  font-size: 1.1rem;
 }
 
-input[type="checkbox"]:checked:after {
+input[type="checkbox"]:checked::after {
   content: "●";
   font-size: 1.9rem;
   position: absolute;
   left: 0;
-  bottom: -10%;
+  bottom: -2.5px; /* Use fixed units for more consistent positioning */
 }
+
 
 .crossed-out {
   position: relative;

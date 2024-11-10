@@ -19,6 +19,9 @@ function loadUser() {
   }
 
   let theme = getThemeFromStorage();
+  if (theme === NaN) {
+    theme = 1;
+  }
 
   return {
     userObj,

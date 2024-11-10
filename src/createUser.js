@@ -19,7 +19,7 @@ function loadUser() {
   }
 
   let theme = getThemeFromStorage();
-  if (theme === NaN) {
+  if (theme === NaN || theme === null) {
     theme = 1;
   }
 

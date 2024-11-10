@@ -1,9 +1,10 @@
 import { addRightTop } from "./changeDOM.js";
-import createUser from "./createUser.js";
+import { createUser, loadUser } from "./createUser.js";
 import handleLeftButton from "./handleLeftButtons.js";
 import Todos from "./todos.js";
 import cachedDOM from "./cachedDOM";
 import { addProjName, addTodosProj } from "./projects.js";
+import { saveUser, updateTheme } from "./saveUser.js";
 
 const colors = Array.from({ length: 10 }, () => {
   const r = Math.floor(180 + Math.random() * 60); // Red: 180-240
@@ -60,32 +61,51 @@ const darkTheme = {
   '--completed-all-todo-bg': 'rgba(0, 128, 0, 0.1)',
 };
 
+function intToTheme(x) {
+  if (x === 0) {
+    return darkTheme;
+  }
+  return lightTheme;
+}
+
 function start() {
   const leftButtons = cachedDOM.cachedLeftButtons;
-  const userObj = createUser();
+
+  let {theme, userObj} = loadUser();
+
+  saveUser(userObj);
+
   leftButtons.forEach(btn => {
     btn.addEventListener("click", () => handleLeftButton(userObj, btn, leftButtons));
   });
+
   handleLeftButton(userObj, leftButtons[0], leftButtons); // start off at today
-  startTheme(1);
+  placeMoonOrSun(theme);
+
+  applyTheme(theme, intToTheme(theme));
   modalCalendarUpdate();
   handleAddTodos(userObj);
   handleAddProject(userObj);
 }
 
-function startTheme(x) {
+function placeMoonOrSun(x) {
+  const sun = document.querySelector(".sun");
+  const moon = document.querySelector(".moon");
   if (x === 1) {
-    applyTheme(lightTheme);
+    moon.classList.remove("vis");
+    sun.classList.add("vis");
   } else {
-    applyTheme(darkTheme);
+    sun.classList.remove("vis");
+    moon.classList.add("vis");
   }
 }
 
-function applyTheme(theme) {
+function applyTheme(x, theme=lightTheme) {
   const root = document.documentElement;
   Object.keys(theme).forEach(property => {
     root.style.setProperty(property, theme[property]);
   });
+  updateTheme().saveAndSetTheme(x);
 }
 
 function handleCloudScene() {
@@ -96,11 +116,11 @@ function handleCloudScene() {
     if (sun.classList.contains("vis")) {
       sun.classList.remove("vis");
       moon.classList.add("vis");
-      applyTheme(darkTheme);
+      applyTheme(0, darkTheme);
     } else {
       moon.classList.remove("vis");
       sun.classList.add("vis");
-      applyTheme(lightTheme);
+      applyTheme(1, lightTheme);
     }
   })
 }
@@ -149,11 +169,23 @@ function clearProjModal(modal) {
   modal.style.display = 'none';
 }
 
-function addButtonToLeftContentThree(btnName,  unsanitizedBtnName, user) {
+function getColorForTabs(projName, userObj, c) {
+  if (c === "") {
+    userObj.projects[projName].c = colors[Math.floor(Math.random() * colors.length)];
+    saveUser(userObj);
+    return userObj.projects[projName].c;
+  } 
+  return c;
+}
+
+function addButtonToLeftContentThree(btnName,  unsanitizedBtnName, user, c="") {
   const leftContentThree = cachedDOM.cachedLeftContentThree;
   const newBtn = document.createElement("button");
-  const color = colors[Math.floor(Math.random() * colors.length)];
+
+  const color = getColorForTabs(btnName, user, c);
+
   newBtn.setAttribute("data-initial-color", `${color}`);
+
   newBtn.style.cssText = `display: flex; justify-content: space-between; align-items:center; background-color: ${color};`;
   
   newBtn.innerHTML = `
@@ -219,14 +251,14 @@ function chooseTab(user) {
   handleLeftButton(user, origin, "");
 }
 
-function handleDeleteTodos(todos, i, user) {
+function handleDeleteTodos(todos, i, userObj) {
   todos.splice(i, 1);
-  chooseTab(user);
+  saveUser(userObj);
+  chooseTab(userObj);
 }
 
-function handleCheckbox(deleteButton, todoObj, checkbox, middle, isReRender=false) {
+function handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, isReRender=false) {
   deleteButton.style.cssText = "appearance: none; background: none; border: none;";
-  console.log(checkbox.id, middle.id);
   if (checkbox.checked) {
     deleteButton.style.visibility = "visible";
     todoObj.isComplete = true;
@@ -236,6 +268,8 @@ function handleCheckbox(deleteButton, todoObj, checkbox, middle, isReRender=fals
     undoCrossOutTodo(todoObj, middle);
     todoObj.isComplete = false;
   }
+
+  saveUser(userObj);
 }
 
 function modalCalendarUpdate() {
@@ -295,7 +329,7 @@ function handleSaveModal(userObj, modal) {
   }
 }
 
-// get the tab we are being called from, it is today or all task do the same
+// get the tab we are being called from
 function handleAddTodos(userObj) {
   const modal = cachedDOM.cachedTodoModal;
   const openModalBtn = cachedDOM.cachedAddTodoButton;

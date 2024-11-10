@@ -1,6 +1,7 @@
 import cachedDOM from "./cachedDOM.js";
 import handleEvents from "./handleEvents.js";
 import { convertDateToReadable, sortUserTodosByDate, isToday, getDayFromIndex } from "./dateManipulation.js";
+import { saveUser } from "./saveUser.js";
 
 function thereAreProjects(projects) {
   if (Object.keys(projects).length === 0) {
@@ -92,9 +93,12 @@ function updateRightContentClasses(rightContent, classToAdd) {
   rightContent.classList.add(classToAdd);
 }
 
-function displayTodayTodos(user) {
-  sortUserTodosByDate(user);
-  let todos = user.todos;
+function displayTodayTodos(userObj) {
+
+  sortUserTodosByDate(userObj);
+  saveUser(userObj);
+
+  let todos = userObj.todos;
   const rightContent = cachedDOM.cachedRightContent;
   updateRightContentClasses(rightContent, "daily")
   rightContent.innerHTML = ``;
@@ -152,18 +156,21 @@ function displayTodayTodos(user) {
       deleteButton = card.querySelector(`.delete-todo-${i}`);  
       middle = card.querySelector(".todo-card-middle"); 
       checkbox.checked = true;
-      handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle, true);
+      handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, true);
     }
 
-    deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(todos, i, user));
-    checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle));     
+    deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(todos, i, userObj));
+    checkbox.addEventListener("change", () => handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle));     
     rightContent.appendChild(card);
   }
 }
 
-function displayAllTodos(user) {
-  sortUserTodosByDate(user);
-  let todos = user.todos;
+function displayAllTodos(userObj) {
+
+  sortUserTodosByDate(userObj);
+  saveUser(userObj);
+
+  let todos = userObj.todos;
   const rightContent = cachedDOM.cachedRightContent;
   updateRightContentClasses(rightContent, "all");
   rightContent.innerHTML = ``;
@@ -203,7 +210,7 @@ function displayAllTodos(user) {
     const completeButton = document.getElementById(`all-todo-complete-${i}`);
     completeButton.addEventListener("click", () => handleEvents.handleAllTaskCompleteButton(todoObj, completeButton, card))
     const deleteButton = document.getElementById(`all-todo-delete-${i}`);  
-    deleteButton.addEventListener("click", () => handleEvents.handleAllTaskDeleteButton(todos, i, user));
+    deleteButton.addEventListener("click", () => handleEvents.handleAllTaskDeleteButton(todos, i, userObj));
     if (todoObj.isComplete) {
       handleEvents.handleAllTaskCompleteButton(todoObj, completeButton, card);
     }
@@ -223,6 +230,9 @@ function displayEmptyScreen(msg) {
 
 // add functionaly to check off an item;
 function displayAllProjects(userObj) {
+
+  saveUser(userObj);
+
   const rightContent = cachedDOM.cachedRightContent;
   updateRightContentClasses(rightContent, "all-pro");
 
@@ -276,7 +286,7 @@ function displayAllProjects(userObj) {
         deleteButton.style.visibility = "hidden";
     
         deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projsTodoList, i, userObj));
-        checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle));
+        checkbox.addEventListener("change", () => handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle));
     
       } else {
 
@@ -302,10 +312,10 @@ function displayAllProjects(userObj) {
         const deleteButton = innerCard.querySelector(".delete-user-proj");
         const middle = innerCard.querySelector(`#proj-card-middle-${i}`);
         checkbox.checked = true;
-        handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle, true);
+        handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, true);
     
         deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projsTodoList, i, userObj));
-        checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle, true));
+        checkbox.addEventListener("change", () => handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, true));
 
       }
     } 
@@ -322,6 +332,9 @@ function displayAllProjects(userObj) {
 }
 
 function displayUserProjects(userObj, buttonName) {
+
+  saveUser(userObj);
+
   const projName = buttonName.split("-")[0];
   const rightContent = cachedDOM.cachedRightContent;
   const projectTodos = userObj.projects[projName].todos;
@@ -336,8 +349,6 @@ function displayUserProjects(userObj, buttonName) {
 
   for (let i = 0; i < projectTodos.length; i++) {
     const todoObj = projectTodos[i];
-    // const card = document.createElement("div");
-    // card.classList.add(`proj-card`, `${todoObj.priority}`, `proj-card-${i}`);
     const card = document.createElement("div");
     card.classList.add("outer-proj-card", `outer-proj-card-${i}`)
 
@@ -350,7 +361,7 @@ function displayUserProjects(userObj, buttonName) {
 
       card.innerHTML = `
       <div class="outer-date">
-        <h3>${month} ${day}, ${year}</h3>
+        <h3>${dayOfWeek.toUpperCase()}, ${month} ${day}, ${year}</h3>
       </div>
       <div class="proj-card ${todoObj.priority}">
         <div class="proj-card-left">
@@ -381,7 +392,7 @@ function displayUserProjects(userObj, buttonName) {
 
       card.innerHTML = `
       <div class="outer-date">
-        <h3>${month} ${day}, ${year}</h3>
+        <h3>${dayOfWeek.toUpperCase()}, ${month} ${day}, ${year}</h3>
       </div>
       <div class="proj-card ${todoObj.priority}">
         <div class="proj-card-left">
@@ -406,11 +417,11 @@ function displayUserProjects(userObj, buttonName) {
       deleteButton = card.querySelector(`.delete-user-proj-${i}`);  
       middle = card.querySelector(".proj-card-middle");  
       checkbox.checked = true;
-      handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle, true);
+      handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, true);
 
    }
     deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projectTodos, i, userObj));
-    checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle));     
+    checkbox.addEventListener("change", () => handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle));     
     rightContent.appendChild(card);
   }
 }

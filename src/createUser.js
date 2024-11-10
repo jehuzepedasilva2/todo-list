@@ -1,6 +1,27 @@
 import Todos from "./todos.js";
 import { addProjName, addTodosProj } from "./projects.js";
 import handleEvents from "./handleEvents.js";
+import { getThemeFromStorage, getUserFromStorage } from "./loadUser.js";
+
+function loadUser() {
+  let userObj = getUserFromStorage();
+  if (!userObj) {
+   userObj = createUser();
+  }
+
+  console.log(userObj);
+  for (const projName in userObj.projects) {
+    const c = userObj.projects[projName].c
+    handleEvents.addButtonToLeftContentThree(projName, projName, userObj, c);
+  }
+
+  let theme = getThemeFromStorage();
+
+  return {
+    userObj,
+    theme,
+  }
+}
 
 function createUser() {
   const userObj = {
@@ -11,7 +32,7 @@ function createUser() {
   const sampleTasks = [
     {
       title: "Create a Todo",
-      desc: "Create your first todo by clicking the + button in the bottom-right corner!",
+      desc: "Create your first to do by clicking the + button in the bottom-right corner!",
       date: todaysDate,
       priority: "high"
     },
@@ -48,4 +69,6 @@ function createUser() {
   return userObj;
 }
 
-export default createUser;
+export { createUser, loadUser };
+
+// issue find a way to save the color of each tav

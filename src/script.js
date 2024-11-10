@@ -6,5 +6,3 @@ function main() {
 }
 
 main();
-
-// in changeDOM.js, when switching between tabs and changing .right-content layout, I have find a better way to do so

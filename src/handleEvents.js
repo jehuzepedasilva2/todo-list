@@ -1,5 +1,5 @@
 import { addRightTop } from "./changeDOM.js";
-import { createUser, loadUser } from "./createUser.js";
+import { loadUser } from "./createUser.js";
 import handleLeftButton from "./handleLeftButtons.js";
 import Todos from "./todos.js";
 import cachedDOM from "./cachedDOM";

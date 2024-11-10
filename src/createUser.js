@@ -6,11 +6,14 @@ import { getThemeFromStorage, getUserFromStorage } from "./loadUser.js";
 function loadUser() {
   let userObj = getUserFromStorage();
   if (!userObj) {
-   userObj = createUser();
+   userObj = createTestUser();
   }
 
   console.log(userObj);
   for (const projName in userObj.projects) {
+    if (projName === "MyProject") {
+      continue;
+    }
     const c = userObj.projects[projName].c
     handleEvents.addButtonToLeftContentThree(projName, projName, userObj, c);
   }
@@ -23,7 +26,7 @@ function loadUser() {
   }
 }
 
-function createUser() {
+function createTestUser() {
   const userObj = {
     todos: [], 
     projects: {},
@@ -69,6 +72,6 @@ function createUser() {
   return userObj;
 }
 
-export { createUser, loadUser };
+export { createTestUser, loadUser };
 
 // issue find a way to save the color of each tav

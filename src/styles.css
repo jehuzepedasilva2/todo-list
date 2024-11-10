@@ -162,6 +162,7 @@ button.add-project:active {
   padding: 0px 10px;
   background-color: var(--right-top-bg-color);
   border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 2px;
 }
 
 .right-content.daily {

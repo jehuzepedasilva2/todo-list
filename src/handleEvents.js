@@ -1,4 +1,4 @@
-import { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop } from "./changeDOM.js";
+import { addRightTop } from "./changeDOM.js";
 import createUser from "./createUser.js";
 import handleLeftButton from "./handleLeftButtons.js";
 import Todos from "./todos.js";
@@ -26,7 +26,7 @@ const lightTheme = {
   '--completed-task-color': '#6EE7B7',
   '--svg-fill-color': '#1c1d1d',
   '--modal-bg-color': '#E5E7EB',
-  '--text-color-modal': '#1F2937',
+  '--text-color-modal': '#000000',
   '--high-priority-border-color': '#EF4444',
   '--medium-priority-border-color': '#F59E0B',
   '--low-priority-border-color': '#34D399',
@@ -54,7 +54,7 @@ const darkTheme = {
   '--low-priority-border-color': '#4CAF50',
   '--crossed-out-text': '#8381817d',
   '--modal-bg-color': '#6b7280',
-  '--text-color-modal': '#161B22',
+  '--text-color-modal': '#000000',
   '--box-shadow-cards-01': 'rgba(0, 0, 0, 0.3)',
   '--box-shadow-cards-02': 'rgba(0, 0, 0, 0.5)',
   '--completed-all-todo-bg': 'rgba(0, 128, 0, 0.1)',
@@ -359,5 +359,6 @@ export default (function eventHandler() {
     start,
     addRightTop,
     handleAddProject,
+    addButtonToLeftContentThree,
   }
 })();

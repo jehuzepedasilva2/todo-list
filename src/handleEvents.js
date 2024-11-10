@@ -73,6 +73,9 @@ function start() {
 
   let {theme, userObj} = loadUser();
 
+  // theme = 1;
+  // userObj = createUser();
+
   saveUser(userObj);
 
   leftButtons.forEach(btn => {

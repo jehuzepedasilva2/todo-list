@@ -56,7 +56,7 @@ function createTestUser() {
   const sampleProjects = [
     {
       title: "Add tasks to MyProject",
-      desc: "Create your first Project tasks by clicking the the + button in the bottom-right corner of the MyProject tab!",
+      desc: "Create your first Project tasks by clicking the + button in the bottom-right corner of the MyProject tab!",
       date: todaysDate,
       priority: "high"
     }

@@ -386,15 +386,15 @@ input[type="checkbox"] {
 
 input[type="checkbox"]::before {
   content: "◯";
-  font-size: 20px;
+  font-size: 1.1rem
 }
 
 input[type="checkbox"]:checked:after {
   content: "●";
-  font-size: 35px;
+  font-size: 1.9rem;
   position: absolute;
-  top: -14px;
-  left: 0px;
+  left: 0;
+  bottom: -10%;
 }
 
 .crossed-out {

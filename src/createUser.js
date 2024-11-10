@@ -6,20 +6,17 @@ import { getThemeFromStorage, getUserFromStorage } from "./loadUser.js";
 function loadUser() {
   let userObj = getUserFromStorage();
   if (!userObj) {
-   userObj = createTestUser();
-  }
+    userObj = createTestUser();
+  } 
 
-  console.log(userObj);
+  // add side buttons
   for (const projName in userObj.projects) {
-    if (projName === "MyProject") {
-      continue;
-    }
     const c = userObj.projects[projName].c
     handleEvents.addButtonToLeftContentThree(projName, projName, userObj, c);
   }
 
   let theme = getThemeFromStorage();
-  if (theme === NaN || theme === null) {
+  if (Number.isNaN(theme)) {
     theme = 1;
   }
 
@@ -69,7 +66,6 @@ function createTestUser() {
 
   for (let i = 0; i < sampleProjects.length; i++) {
     addTodosProj(userObj, projName, sampleProjects[i].title, sampleProjects[i].desc, sampleProjects[i].date, sampleProjects[i].priority);
-    handleEvents.addButtonToLeftContentThree(projName, projName, userObj);
   }
 
   return userObj;

@@ -1,7 +1,10 @@
 @font-face {
-  font-family: 'Quicksand';
-  src: url('../fonts/quicksand/quicksand-variablefont_wght-webfont.woff2') format('woff2'),
-       url('../fonts/quicksand/quicksand-variablefont_wght-webfont.woff') format('woff');
+  font-family: "Quicksand";
+  src:
+    url("../fonts/quicksand/quicksand-variablefont_wght-webfont.woff2")
+      format("woff2"),
+    url("../fonts/quicksand/quicksand-variablefont_wght-webfont.woff")
+      format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -11,7 +14,7 @@
   padding: 0;
   box-sizing: border-box;
   color: var(--text-color);
-  font-family: 'Quicksand';
+  font-family: "Quicksand";
 }
 
 body {
@@ -19,7 +22,7 @@ body {
   height: 100vh;
   display: flex;
   align-items: stretch;
-  background-color: var(--bg-color); 
+  background-color: var(--bg-color);
   color: var(--text-color);
 }
 
@@ -39,16 +42,15 @@ body {
   overflow-y: auto; /* Enable scrolling if content exceeds the viewport */
 }
 
-
-.right, 
+.right,
 .left {
   display: flex;
   flex-direction: column;
 }
 
-.left-top, 
-.right-top, 
-.left-content, 
+.left-top,
+.right-top,
+.left-content,
 .right-content {
   width: 100%;
   border-radius: 10px;
@@ -70,8 +72,7 @@ body {
   gap: 10px;
 }
 
-
-.left-content-one, 
+.left-content-one,
 .left-content-three {
   width: 100%;
   padding: 20px;
@@ -241,7 +242,7 @@ button.add-project:active {
   line-height: 1.4;
   color: var(--text-color);
   background-color: var(--card-color);
-  border-radius: 6px; 
+  border-radius: 6px;
   box-shadow: inset 0 0 5px var(--box-shadow-cards-02);
 }
 
@@ -283,7 +284,7 @@ button.add-project:active {
 }
 
 .all-todo-card.checked::after {
-  content: '✔ Completed !';
+  content: "✔ Completed !";
   position: absolute;
   bottom: 27.5px;
   left: 60px;
@@ -340,12 +341,12 @@ button.add-project:active {
   border: 1px solid var(--medium-priority-border-color);
 }
 
-.todo-card.low{
+.todo-card.low {
   border: 1px solid var(--low-priority-border-color);
 }
 
 .add-todo:active {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .add-todo:hover {
@@ -371,7 +372,8 @@ button.add-project:active {
   transition: transform 0.3s ease;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: var(--text-color);
 }
 
@@ -398,7 +400,6 @@ input[type="checkbox"]:checked::after {
   left: 0;
   bottom: -2.5px; /* Use fixed units for more consistent positioning */
 }
-
 
 .crossed-out {
   position: relative;
@@ -438,10 +439,10 @@ input[type="checkbox"]:checked::after {
 .modal-content {
   display: flex;
   flex-direction: column;
-  align-items: center;  
+  align-items: center;
   gap: 20px;
   background-color: var(--modal-bg-color);
-  color: var(--text-color); 
+  color: var(--text-color);
   margin: 10% auto;
   padding: 20px;
   border-radius: 8px;
@@ -452,7 +453,7 @@ input[type="checkbox"]:checked::after {
   animation: slideIn 0.3s;
 }
 
-.close-todo, 
+.close-todo,
 .close-proj {
   position: absolute;
   top: 10px;
@@ -465,7 +466,7 @@ input[type="checkbox"]:checked::after {
 .modal-content p,
 .modal-content input,
 .modal-content textarea,
-.modal-content button, 
+.modal-content button,
 .modal-content select {
   font-size: 1rem;
   color: var(--text-color-modal);
@@ -500,7 +501,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .modal-content button:active {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .modal label {
@@ -513,8 +514,14 @@ input[type="checkbox"]:checked::after {
 }
 
 @keyframes slideIn {
-  from { transform: translateY(-100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* ------------------------------ CLOUDS ----------------------------------------------- */
@@ -557,14 +564,14 @@ input[type="checkbox"]:checked::after {
   transform: scale(1.1);
 }
 
-.cloud-container-one, 
-#circle-01, 
+.cloud-container-one,
+#circle-01,
 #circle-02 {
   background-color: var(--cloud-bg-color-01);
 }
 
-.cloud-container-one, 
-.cloud-container-two, 
+.cloud-container-one,
+.cloud-container-two,
 .cloud-container-three {
   position: relative;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.7);
@@ -595,8 +602,8 @@ input[type="checkbox"]:checked::after {
   right: 12px;
 }
 
-.cloud-container-two, 
-#circle-03, 
+.cloud-container-two,
+#circle-03,
 #circle-04 {
   background-color: var(--cloud-bg-color-02);
 }
@@ -629,8 +636,8 @@ input[type="checkbox"]:checked::after {
   right: 12px;
 }
 
-.cloud-container-three, 
-#circle-05, 
+.cloud-container-three,
+#circle-05,
 #circle-06 {
   background-color: var(--cloud-bg-color-03);
 }
@@ -686,7 +693,9 @@ input[type="checkbox"]:checked::after {
   z-index: 1;
   bottom: -20px;
   opacity: 0;
-  transition: bottom 1s ease-in-out, opacity 1s ease-in-out;
+  transition:
+    bottom 1s ease-in-out,
+    opacity 1s ease-in-out;
 }
 
 .sun.vis {
@@ -694,16 +703,16 @@ input[type="checkbox"]:checked::after {
   opacity: 1;
 }
 
-.sun, 
-.sun-inner-01, 
+.sun,
+.sun-inner-01,
 .sun-inner-02 {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.sun, 
-.sun-inner-01, 
+.sun,
+.sun-inner-01,
 .sun-inner-02,
 .sun-inner-03 {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
@@ -750,7 +759,7 @@ input[type="checkbox"]:checked::after {
   --crater-box-shadow-color-02: #848485;
 }
 
-.moon, 
+.moon,
 .moon-inner-01 {
   display: flex;
   justify-content: center;
@@ -766,7 +775,9 @@ input[type="checkbox"]:checked::after {
   position: absolute;
   left: 50px;
   z-index: 1;
-  transition: bottom 1s ease-in-out, opacity 1s ease-in-out;
+  transition:
+    bottom 1s ease-in-out,
+    opacity 1s ease-in-out;
   bottom: 80px;
   opacity: 0;
 }
@@ -792,7 +803,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .crater-01,
-.crater-02, 
+.crater-02,
 .crater-03 {
   box-shadow: inset 0px 0px 6px var(--crater-box-shadow-color-01);
 }
@@ -827,18 +838,17 @@ input[type="checkbox"]:checked::after {
   left: 18px;
 }
 
-
 /* ------------------------------------------ BIRDS --------------------------------- */
 :root {
-  --bird-color: var(--text-color)
+  --bird-color: var(--text-color);
 }
 
 .bird-container {
   position: relative;
 }
 
-.bird-01, 
-.bird-02, 
+.bird-01,
+.bird-02,
 .bird-03 {
   position: relative;
 }
@@ -847,18 +857,18 @@ input[type="checkbox"]:checked::after {
   --c: 18px;
   height: 20px;
   aspect-ratio: 3/2;
-  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
+  mask: radial-gradient(70% var(--c) at bottom, #0000 calc(100% - 2px), #000);
   background: var(--bird-color);
   border-top-left-radius: var(--c);
   border-top-right-radius: var(--c);
 }
 
 .bird-01 .right-wing {
-  --c: 18px; 
+  --c: 18px;
   height: 20px;
   aspect-ratio: 3/2;
-  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
-  background: var(--bird-color);;
+  mask: radial-gradient(70% var(--c) at bottom, #0000 calc(100% - 2px), #000);
+  background: var(--bird-color);
   border-top-left-radius: var(--c);
   border-top-right-radius: var(--c);
   position: absolute;
@@ -869,25 +879,25 @@ input[type="checkbox"]:checked::after {
 .bird-02 {
   position: absolute;
   top: 20px;
-  left: 30px
+  left: 30px;
 }
 
 .bird-02 .left-wing {
-  --c: 15px; 
+  --c: 15px;
   height: 18px;
   aspect-ratio: 3/2;
-  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
-  background:var(--bird-color);;
+  mask: radial-gradient(70% var(--c) at bottom, #0000 calc(100% - 2px), #000);
+  background: var(--bird-color);
   border-top-left-radius: var(--c);
   border-top-right-radius: var(--c);
 }
 
 .bird-02 .right-wing {
-  --c: 15px; 
+  --c: 15px;
   height: 18px;
   aspect-ratio: 3/2;
-  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
-  background: var(--bird-color);;
+  mask: radial-gradient(70% var(--c) at bottom, #0000 calc(100% - 2px), #000);
+  background: var(--bird-color);
   border-top-left-radius: var(--c);
   border-top-right-radius: var(--c);
   position: absolute;
@@ -901,21 +911,21 @@ input[type="checkbox"]:checked::after {
 }
 
 .bird-03 .left-wing {
-  --c: 10px; 
+  --c: 10px;
   height: 12px;
   aspect-ratio: 3/2;
-  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
-  background: var(--bird-color);;
+  mask: radial-gradient(70% var(--c) at bottom, #0000 calc(100% - 2px), #000);
+  background: var(--bird-color);
   border-top-left-radius: var(--c);
   border-top-right-radius: var(--c);
 }
 
 .bird-03 .right-wing {
-  --c: 10px; 
+  --c: 10px;
   height: 12px;
   aspect-ratio: 3/2;
-  mask: radial-gradient(70% var(--c) at bottom,#0000 calc(100% - 2px),#000);
-  background: var(--bird-color);;
+  mask: radial-gradient(70% var(--c) at bottom, #0000 calc(100% - 2px), #000);
+  background: var(--bird-color);
   border-top-left-radius: var(--c);
   border-top-right-radius: var(--c);
   position: absolute;
@@ -1005,7 +1015,6 @@ input[type="checkbox"]:checked::after {
   width: 100%;
   align-items: center;
   padding: 4px;
-
 }
 
 .proj-card.high {
@@ -1016,7 +1025,7 @@ input[type="checkbox"]:checked::after {
   border: 1px solid var(--medium-priority-border-color);
 }
 
-.proj-card.low{
+.proj-card.low {
   border: 1px solid var(--low-priority-border-color);
 }
 
@@ -1068,9 +1077,11 @@ input[type="checkbox"]:checked::after {
   color: var(--crossed-out-text);
 }
 
-.all-todo-card, 
-.todo-card, 
-.proj-card, 
+.all-todo-card,
+.todo-card,
+.proj-card,
 .all-proj-card {
-  transition: background-color 0.3s, opacity 0.3s;
+  transition:
+    background-color 0.3s,
+    opacity 0.3s;
 }

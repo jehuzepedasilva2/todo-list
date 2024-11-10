@@ -1,8 +1,13 @@
-import { displayAllTodos, displayTodayTodos, displayAllProjects, displayUserProjects } from "./changeDOM.js";
+import {
+  displayAllTodos,
+  displayTodayTodos,
+  displayAllProjects,
+  displayUserProjects,
+} from "./changeDOM.js";
 import handleEvents from "./handleEvents.js";
 
 function removeButtonLook(leftButtons) {
-  leftButtons.forEach(btn => {
+  leftButtons.forEach((btn) => {
     btn.classList.remove("new-style");
     if (btn.classList[1] === "user-added") {
       btn.style.backgroundColor = btn.getAttribute("data-initial-color");
@@ -31,8 +36,8 @@ export default function handleLeftButton(user, btn, leftButtons) {
   if (btn.classList.contains("add-project")) {
     return;
   }
-  removeButtonLook(leftButtons);  
-  btn.classList.add("new-style");  
-  display(user, btn);   
-  handleEvents.addRightTop(); 
+  removeButtonLook(leftButtons);
+  btn.classList.add("new-style");
+  display(user, btn);
+  handleEvents.addRightTop();
 }

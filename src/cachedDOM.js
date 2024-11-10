@@ -9,7 +9,7 @@ function getLeftButtons() {
 function getLeftContent() {
   return {
     buttonsTop: document.querySelector(".left-content-one"),
-    buttonsBottom: document.querySelector(".left-content-three")
+    buttonsBottom: document.querySelector(".left-content-three"),
   };
 }
 
@@ -55,14 +55,14 @@ function getAddProjectModal() {
 
 export default (function getDOM() {
   return {
-    cachedBody: getBody(), 
+    cachedBody: getBody(),
     cachedLeftButtons: getLeftButtons(),
     cachedLeftContent: getLeftContent(),
     cachedRightTop: getRightTop(),
     cachedRightContent: getRightContent(),
     cachedAddTodoButton: getAddTodoButton(),
     cachedTodoCards: getTodoCards(),
-    cachedTodoModal: getAddTodoModal(), 
+    cachedTodoModal: getAddTodoModal(),
     cachedModalTodoSaveButton: getModalTodoSaveButton(),
     cachedAddProjectButton: getAddProjectButton(),
     cachedLeftContentThree: getLeftContentThree(),

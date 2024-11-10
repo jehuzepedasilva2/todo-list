@@ -1,13 +1,18 @@
 import cachedDOM from "./cachedDOM.js";
 import handleEvents from "./handleEvents.js";
-import { convertDateToReadable, sortUserTodosByDate, isToday, getDayFromIndex } from "./dateManipulation.js";
+import {
+  convertDateToReadable,
+  sortUserTodosByDate,
+  isToday,
+  getDayFromIndex,
+} from "./dateManipulation.js";
 import { saveUser } from "./saveUser.js";
 
 function thereAreProjects(projects) {
   if (Object.keys(projects).length === 0) {
-    return false
+    return false;
   }
-  return true
+  return true;
 }
 
 function addRightTop() {
@@ -22,7 +27,9 @@ function addRightTop() {
   const rightTop = cachedDOM.cachedRightTop;
   const todaysDate = new Date();
   const dayOfWeek = getDayFromIndex(todaysDate.getDay());
-  const [month, day, year] = convertDateToReadable(todaysDate).replace(",", "").split(" ");
+  const [month, day, year] = convertDateToReadable(todaysDate)
+    .replace(",", "")
+    .split(" ");
   rightTop.innerHTML = `
   <div class="clouds-container">
     <div class="clouds">
@@ -85,22 +92,21 @@ function addRightTop() {
 
 function updateRightContentClasses(rightContent, classToAdd) {
   const classes = rightContent.classList;
-  classes.forEach(c => {
+  classes.forEach((c) => {
     if (c !== "right-content") {
       rightContent.classList.remove(c);
     }
-  })
+  });
   rightContent.classList.add(classToAdd);
 }
 
 function displayTodayTodos(userObj) {
-
   sortUserTodosByDate(userObj);
   saveUser(userObj);
 
   let todos = userObj.todos;
   const rightContent = cachedDOM.cachedRightContent;
-  updateRightContentClasses(rightContent, "daily")
+  updateRightContentClasses(rightContent, "daily");
   rightContent.innerHTML = ``;
 
   for (let i = 0; i < todos.length; i++) {
@@ -131,9 +137,9 @@ function displayTodayTodos(userObj) {
       </div>
       `;
       checkbox = card.querySelector(`#check-${i}`);
-      deleteButton = card.querySelector(`.delete-todo-${i}`);   
+      deleteButton = card.querySelector(`.delete-todo-${i}`);
       middle = card.querySelector(".todo-card-middle");
-      deleteButton.style.visibility = "hidden"; 
+      deleteButton.style.visibility = "hidden";
     } else {
       card.innerHTML = `
       <div class="todo-card-left">
@@ -153,20 +159,36 @@ function displayTodayTodos(userObj) {
       </div>
       `;
       checkbox = card.querySelector(`#check-${i}`);
-      deleteButton = card.querySelector(`.delete-todo-${i}`);  
-      middle = card.querySelector(".todo-card-middle"); 
+      deleteButton = card.querySelector(`.delete-todo-${i}`);
+      middle = card.querySelector(".todo-card-middle");
       checkbox.checked = true;
-      handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, true);
+      handleEvents.handleCheckbox(
+        userObj,
+        deleteButton,
+        todoObj,
+        checkbox,
+        middle,
+        true,
+      );
     }
 
-    deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(todos, i, userObj));
-    checkbox.addEventListener("change", () => handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle));     
+    deleteButton.addEventListener("click", () =>
+      handleEvents.handleDeleteTodos(todos, i, userObj),
+    );
+    checkbox.addEventListener("change", () =>
+      handleEvents.handleCheckbox(
+        userObj,
+        deleteButton,
+        todoObj,
+        checkbox,
+        middle,
+      ),
+    );
     rightContent.appendChild(card);
   }
 }
 
 function displayAllTodos(userObj) {
-
   sortUserTodosByDate(userObj);
   saveUser(userObj);
 
@@ -208,9 +230,13 @@ function displayAllTodos(userObj) {
     `;
     rightContent.appendChild(card);
     const completeButton = document.getElementById(`all-todo-complete-${i}`);
-    completeButton.addEventListener("click", () => handleEvents.handleAllTaskCompleteButton(todoObj, completeButton, card))
-    const deleteButton = document.getElementById(`all-todo-delete-${i}`);  
-    deleteButton.addEventListener("click", () => handleEvents.handleAllTaskDeleteButton(todos, i, userObj));
+    completeButton.addEventListener("click", () =>
+      handleEvents.handleAllTaskCompleteButton(todoObj, completeButton, card),
+    );
+    const deleteButton = document.getElementById(`all-todo-delete-${i}`);
+    deleteButton.addEventListener("click", () =>
+      handleEvents.handleAllTaskDeleteButton(todos, i, userObj),
+    );
     if (todoObj.isComplete) {
       handleEvents.handleAllTaskCompleteButton(todoObj, completeButton, card);
     }
@@ -227,17 +253,15 @@ function displayEmptyScreen(msg) {
   `;
 }
 
-
 // add functionaly to check off an item;
 function displayAllProjects(userObj) {
-
   saveUser(userObj);
 
   const rightContent = cachedDOM.cachedRightContent;
   updateRightContentClasses(rightContent, "all-pro");
 
   rightContent.innerHTML = "";
-  const projects = userObj.projects // this is an object
+  const projects = userObj.projects; // this is an object
 
   if (!thereAreProjects(projects)) {
     displayEmptyScreen("Empty");
@@ -258,9 +282,8 @@ function displayAllProjects(userObj) {
       const todoObj = projsTodoList[i];
       const innerCard = document.createElement("div");
       innerCard.classList.add("proj-card", todoObj.priority);
-      
-      if (!todoObj.isComplete) {
 
+      if (!todoObj.isComplete) {
         innerCard.innerHTML = `
           <div class="proj-card-left inner-all-projs">
             <form>
@@ -279,17 +302,25 @@ function displayAllProjects(userObj) {
             </button>
           </div>`;
         card.appendChild(innerCard);
-    
+
         const checkbox = innerCard.querySelector(`#check-user-proj-${i}`);
         const deleteButton = innerCard.querySelector(".delete-user-proj");
         const middle = innerCard.querySelector(`#proj-card-middle-${i}`);
         deleteButton.style.visibility = "hidden";
-    
-        deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projsTodoList, i, userObj));
-        checkbox.addEventListener("change", () => handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle));
-    
-      } else {
 
+        deleteButton.addEventListener("click", () =>
+          handleEvents.handleDeleteTodos(projsTodoList, i, userObj),
+        );
+        checkbox.addEventListener("change", () =>
+          handleEvents.handleCheckbox(
+            userObj,
+            deleteButton,
+            todoObj,
+            checkbox,
+            middle,
+          ),
+        );
+      } else {
         innerCard.innerHTML = `
           <div class="proj-card-left inner-all-projs">
             <form>
@@ -307,24 +338,41 @@ function displayAllProjects(userObj) {
             </button>
           </div>`;
         card.appendChild(innerCard);
-    
+
         const checkbox = innerCard.querySelector(`#check-user-proj-${i}`);
         const deleteButton = innerCard.querySelector(".delete-user-proj");
         const middle = innerCard.querySelector(`#proj-card-middle-${i}`);
         checkbox.checked = true;
-        handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, true);
-    
-        deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projsTodoList, i, userObj));
-        checkbox.addEventListener("change", () => handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, true));
+        handleEvents.handleCheckbox(
+          userObj,
+          deleteButton,
+          todoObj,
+          checkbox,
+          middle,
+          true,
+        );
 
+        deleteButton.addEventListener("click", () =>
+          handleEvents.handleDeleteTodos(projsTodoList, i, userObj),
+        );
+        checkbox.addEventListener("change", () =>
+          handleEvents.handleCheckbox(
+            userObj,
+            deleteButton,
+            todoObj,
+            checkbox,
+            middle,
+            true,
+          ),
+        );
       }
-    } 
+    }
 
     if (projsTodoList.length === 0) {
       const emptySign = document.createElement("div");
-      emptySign.style.cssText = "text-align: center; color: #8381817d;"
+      emptySign.style.cssText = "text-align: center; color: #8381817d;";
       emptySign.innerHTML = `Empty <br> Click on <strong>${projName}</strong> to add tasks`;
-      card.appendChild(emptySign)
+      card.appendChild(emptySign);
     }
 
     rightContent.appendChild(card);
@@ -332,7 +380,6 @@ function displayAllProjects(userObj) {
 }
 
 function displayUserProjects(userObj, buttonName) {
-
   saveUser(userObj);
 
   const projName = buttonName.split("-")[0];
@@ -350,15 +397,16 @@ function displayUserProjects(userObj, buttonName) {
   for (let i = 0; i < projectTodos.length; i++) {
     const todoObj = projectTodos[i];
     const card = document.createElement("div");
-    card.classList.add("outer-proj-card", `outer-proj-card-${i}`)
+    card.classList.add("outer-proj-card", `outer-proj-card-${i}`);
 
     const date = todoObj.dueDate;
     const dayOfWeek = getDayFromIndex(date.getDay());
-    const [month, day, year] = convertDateToReadable(date).replace(",", "").split(" ");
+    const [month, day, year] = convertDateToReadable(date)
+      .replace(",", "")
+      .split(" ");
     let deleteButton, checkbox, middle;
 
     if (!todoObj.isComplete) {
-
       card.innerHTML = `
       <div class="outer-date">
         <h3>${dayOfWeek.toUpperCase()}, ${month} ${day}, ${year}</h3>
@@ -384,12 +432,10 @@ function displayUserProjects(userObj, buttonName) {
       `;
 
       checkbox = card.querySelector(`#check-user-proj-${i}`);
-      deleteButton = card.querySelector(`.delete-user-proj-${i}`);   
+      deleteButton = card.querySelector(`.delete-user-proj-${i}`);
       middle = card.querySelector(".proj-card-middle");
-      deleteButton.style.visibility = "hidden"; 
-
+      deleteButton.style.visibility = "hidden";
     } else {
-
       card.innerHTML = `
       <div class="outer-date">
         <h3>${dayOfWeek.toUpperCase()}, ${month} ${day}, ${year}</h3>
@@ -414,19 +460,41 @@ function displayUserProjects(userObj, buttonName) {
       `;
 
       checkbox = card.querySelector(`#check-user-proj-${i}`);
-      deleteButton = card.querySelector(`.delete-user-proj-${i}`);  
-      middle = card.querySelector(".proj-card-middle");  
+      deleteButton = card.querySelector(`.delete-user-proj-${i}`);
+      middle = card.querySelector(".proj-card-middle");
       checkbox.checked = true;
-      handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle, true);
-
-   }
-    deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projectTodos, i, userObj));
-    checkbox.addEventListener("change", () => handleEvents.handleCheckbox(userObj, deleteButton, todoObj, checkbox, middle));     
+      handleEvents.handleCheckbox(
+        userObj,
+        deleteButton,
+        todoObj,
+        checkbox,
+        middle,
+        true,
+      );
+    }
+    deleteButton.addEventListener("click", () =>
+      handleEvents.handleDeleteTodos(projectTodos, i, userObj),
+    );
+    checkbox.addEventListener("change", () =>
+      handleEvents.handleCheckbox(
+        userObj,
+        deleteButton,
+        todoObj,
+        checkbox,
+        middle,
+      ),
+    );
     rightContent.appendChild(card);
   }
 }
 
-export { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop, displayUserProjects };
+export {
+  displayTodayTodos,
+  displayAllTodos,
+  displayAllProjects,
+  addRightTop,
+  displayUserProjects,
+};
 
-// still to do: 
+// still to do:
 // add functionality to the add-todo button the corner, so that when in a project tab the, todo gets added to that project!

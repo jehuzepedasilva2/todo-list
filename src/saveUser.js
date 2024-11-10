@@ -10,7 +10,7 @@ function updateTheme() {
     return theme;
   }
 
-  return { saveAndSetTheme, getTheme }
+  return { saveAndSetTheme, getTheme };
 }
 
 function saveUser(userObj) {
@@ -18,4 +18,4 @@ function saveUser(userObj) {
   localStorage.setItem("user", userJSON);
 }
 
-export { saveUser, updateTheme }
+export { saveUser, updateTheme };

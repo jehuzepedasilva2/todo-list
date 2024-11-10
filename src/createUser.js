@@ -7,11 +7,11 @@ function loadUser() {
   let userObj = getUserFromStorage();
   if (!userObj) {
     userObj = createTestUser();
-  } 
+  }
 
   // add side buttons
   for (const projName in userObj.projects) {
-    const c = userObj.projects[projName].c
+    const c = userObj.projects[projName].c;
     handleEvents.addButtonToLeftContentThree(projName, projName, userObj, c);
   }
 
@@ -23,12 +23,12 @@ function loadUser() {
   return {
     userObj,
     theme,
-  }
+  };
 }
 
 function createTestUser() {
   const userObj = {
-    todos: [], 
+    todos: [],
     projects: {},
   };
   const todaysDate = new Date();
@@ -37,35 +37,47 @@ function createTestUser() {
       title: "Create a Todo",
       desc: "Create your first to do by clicking the + button in the bottom-right corner!",
       date: todaysDate,
-      priority: "high"
+      priority: "high",
     },
     {
       title: "Create a Project",
       desc: "Create your first Project by clicking the + next to the Projects heading!",
       date: todaysDate,
-      priority: "high"
-    }
-  ]
-
+      priority: "high",
+    },
+  ];
 
   for (let i = 0; i < sampleTasks.length; i++) {
-    Todos.addTodo(userObj, sampleTasks[i].title, sampleTasks[i].desc, sampleTasks[i].date, sampleTasks[i].priority);
+    Todos.addTodo(
+      userObj,
+      sampleTasks[i].title,
+      sampleTasks[i].desc,
+      sampleTasks[i].date,
+      sampleTasks[i].priority,
+    );
   }
 
-  const projName = "MyProject"
+  const projName = "MyProject";
   const sampleProjects = [
     {
       title: "Add tasks to MyProject",
       desc: "Create your first Project tasks by clicking the + button in the bottom-right corner of the MyProject tab!",
       date: todaysDate,
-      priority: "high"
-    }
-  ]
+      priority: "high",
+    },
+  ];
 
   addProjName(userObj, projName);
 
   for (let i = 0; i < sampleProjects.length; i++) {
-    addTodosProj(userObj, projName, sampleProjects[i].title, sampleProjects[i].desc, sampleProjects[i].date, sampleProjects[i].priority);
+    addTodosProj(
+      userObj,
+      projName,
+      sampleProjects[i].title,
+      sampleProjects[i].desc,
+      sampleProjects[i].date,
+      sampleProjects[i].priority,
+    );
   }
 
   return userObj;

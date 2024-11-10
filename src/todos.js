@@ -1,11 +1,11 @@
 function createTodo(title, description, dueDate, priority) {
   return {
-    title: title, 
+    title: title,
     description: description,
     dueDate: dueDate,
     priority: priority,
     isComplete: false,
-  }
+  };
 }
 
 function deleteTodo({ todos }, index) {
@@ -18,15 +18,13 @@ function updateTodo(obj, index, title, desc, dueDate, priority) {
 }
 
 function addTodo({ todos }, title, description, dueDate, priority) {
-  todos.push(
-    createTodo(title, description, dueDate, priority)
-  );
+  todos.push(createTodo(title, description, dueDate, priority));
 }
 
 export default (function Todos() {
   return {
-    addTodo, 
-    updateTodo, 
-    deleteTodo
-  }
+    addTodo,
+    updateTodo,
+    deleteTodo,
+  };
 })();

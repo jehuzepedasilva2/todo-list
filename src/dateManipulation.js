@@ -1,21 +1,21 @@
 function convertDateToReadable(date) {
   return date.toLocaleDateString("en-US", {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
 function getDayFromIndex(index) {
   const days = {
     0: "Sunday",
-    1: "Monday", 
-    2: "Tuesday", 
+    1: "Monday",
+    2: "Tuesday",
     3: "Wednesday",
     4: "Thursday",
-    5: "Friday", 
+    5: "Friday",
     6: "Saturday",
-  }
+  };
   return days[index];
 }
 
@@ -25,7 +25,7 @@ function sortUserTodosByDate(user) {
 
 function isToday(date) {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); 
+  today.setHours(0, 0, 0, 0);
 
   const checkDate = new Date(date);
   checkDate.setHours(0, 0, 0, 0); // Remove time from each date in the list

@@ -15,7 +15,7 @@ function createUser() {
     },
     {
       title: "Create a Project",
-      desc: "Create your first Project by clicking the + next to the Projects heading button in the left panel!",
+      desc: "Create your first Project by clicking the + next to the Projects heading!",
       date: todaysDate,
       priority: "high"
     }

@@ -12,17 +12,15 @@ function removeButtonLook(leftButtons) {
 
 function display(user, btn) {
   const addTodoButton = document.querySelector(".add-todo");
+  addTodoButton.style.visibility = "visible";
   if (btn.classList.contains("today")) {
-    addTodoButton.style.visibility = "visible";
     displayTodayTodos(user);
   } else if (btn.classList.contains("all-tasks")) {
-    addTodoButton.style.visibility = "visible";
     displayAllTodos(user);
   } else if (btn.classList.contains("all-projects")) {
-    addTodoButton.style.visibility = "hidden";
+    addTodoButton.style.visibility = "hidden"; // don't allow button to be used in the All Projects tab
     displayAllProjects(user);
   } else {
-    addTodoButton.style.visibility = "visible";
     btn.style.backgroundColor = "";
     displayUserProjects(user, btn.classList[0]);
   }

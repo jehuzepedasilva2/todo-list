@@ -2,6 +2,13 @@ import cachedDOM from "./cachedDOM.js";
 import handleEvents from "./handleEvents.js";
 import { convertDateToReadable, sortUserTodosByDate, isToday, getDayFromIndex } from "./dateManipulation.js";
 
+function thereAreProjects(projects) {
+  if (Object.keys(projects).length === 0) {
+    return false
+  }
+  return true
+}
+
 function addRightTop() {
   const sun = document.querySelector(".sun");
   const moon = document.querySelector(".moon");
@@ -203,6 +210,16 @@ function displayAllTodos(user) {
   }
 }
 
+function displayEmptyScreen(msg) {
+  const rightContent = cachedDOM.cachedRightContent;
+  updateRightContentClasses(rightContent, "no-projs");
+  rightContent.innerHTML = `
+    <div>
+      <h1>${msg}</h1>
+    </div>
+  `;
+}
+
 
 // add functionaly to check off an item;
 function displayAllProjects(userObj) {
@@ -211,6 +228,10 @@ function displayAllProjects(userObj) {
 
   rightContent.innerHTML = "";
   const projects = userObj.projects // this is an object
+
+  if (!thereAreProjects(projects)) {
+    displayEmptyScreen("Empty");
+  }
 
   for (const projName in projects) {
     const projsTodoList = projects[projName].todos; // this is a list of objects
@@ -229,8 +250,9 @@ function displayAllProjects(userObj) {
       innerCard.classList.add("proj-card", todoObj.priority);
       
       if (!todoObj.isComplete) {
+
         innerCard.innerHTML = `
-          <div class="proj-card-left">
+          <div class="proj-card-left inner-all-projs">
             <form>
               <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
             </form>
@@ -257,8 +279,9 @@ function displayAllProjects(userObj) {
         checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle));
     
       } else {
+
         innerCard.innerHTML = `
-          <div class="proj-card-left">
+          <div class="proj-card-left inner-all-projs">
             <form>
               <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
             </form>
@@ -286,6 +309,14 @@ function displayAllProjects(userObj) {
 
       }
     } 
+
+    if (projsTodoList.length === 0) {
+      const emptySign = document.createElement("div");
+      emptySign.style.cssText = "text-align: center; color: #8381817d;"
+      emptySign.innerHTML = `Empty <br> Click on <strong>${projName}</strong> to add tasks`;
+      card.appendChild(emptySign)
+    }
+
     rightContent.appendChild(card);
   }
 }
@@ -297,12 +328,18 @@ function displayUserProjects(userObj, buttonName) {
   updateRightContentClasses(rightContent, "user-projects");
   rightContent.innerHTML = "";
 
+  if (projectTodos.length === 0) {
+    displayEmptyScreen("Empty");
+  }
+
   sortUserTodosByDate(userObj.projects[projName]);
 
   for (let i = 0; i < projectTodos.length; i++) {
     const todoObj = projectTodos[i];
+    // const card = document.createElement("div");
+    // card.classList.add(`proj-card`, `${todoObj.priority}`, `proj-card-${i}`);
     const card = document.createElement("div");
-    card.classList.add(`proj-card`, `${todoObj.priority}`, `proj-card-${i}`);
+    card.classList.add("outer-proj-card", `outer-proj-card-${i}`)
 
     const date = todoObj.dueDate;
     const dayOfWeek = getDayFromIndex(date.getDay());
@@ -312,10 +349,13 @@ function displayUserProjects(userObj, buttonName) {
     if (!todoObj.isComplete) {
 
       card.innerHTML = `
-      <div class="proj-card">
+      <div class="outer-date">
+        <h3>${month} ${day}, ${year}</h3>
+      </div>
+      <div class="proj-card ${todoObj.priority}">
         <div class="proj-card-left">
           <form>
-          <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
+            <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
           </form>
         </div>
         <div class="proj-card-middle">
@@ -331,6 +371,7 @@ function displayUserProjects(userObj, buttonName) {
         </div>
       </div>
       `;
+
       checkbox = card.querySelector(`#check-user-proj-${i}`);
       deleteButton = card.querySelector(`.delete-user-proj-${i}`);   
       middle = card.querySelector(".proj-card-middle");
@@ -339,13 +380,16 @@ function displayUserProjects(userObj, buttonName) {
     } else {
 
       card.innerHTML = `
-      <div class="proj-card">
+      <div class="outer-date">
+        <h3>${month} ${day}, ${year}</h3>
+      </div>
+      <div class="proj-card ${todoObj.priority}">
         <div class="proj-card-left">
           <form>
-          <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
+            <input type="checkbox" class="check-box" id="check-user-proj-${i}" name="is_completed_user_proj">
           </form>
         </div>
-        <div class="proj-card-middle crossed-out">
+        <div class="proj-card-middle">
           <h2>${todoObj.title}</h2>
         </div>
         <div class="proj-card-right">
@@ -357,6 +401,7 @@ function displayUserProjects(userObj, buttonName) {
         </div>
       </div>
       `;
+
       checkbox = card.querySelector(`#check-user-proj-${i}`);
       deleteButton = card.querySelector(`.delete-user-proj-${i}`);  
       middle = card.querySelector(".proj-card-middle");  
@@ -364,10 +409,13 @@ function displayUserProjects(userObj, buttonName) {
       handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle, true);
 
    }
-    deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(todos, i, user));
+    deleteButton.addEventListener("click", () => handleEvents.handleDeleteTodos(projectTodos, i, userObj));
     checkbox.addEventListener("change", () => handleEvents.handleCheckbox(deleteButton, todoObj, checkbox, middle));     
     rightContent.appendChild(card);
   }
 }
 
 export { displayTodayTodos, displayAllTodos, displayAllProjects, addRightTop, displayUserProjects };
+
+// still to do: 
+// add functionality to the add-todo button the corner, so that when in a project tab the, todo gets added to that project!

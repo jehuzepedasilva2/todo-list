@@ -33,7 +33,7 @@ const lightTheme = {
   '--crossed-out-text': '#9CA3AF7d',
   '--box-shadow-cards-01': 'rgba(0, 0, 0, 0.1)',
   '--box-shadow-cards-02': 'rgba(0, 0, 0, 0.2)',
-  '--completed-all-todo-bg': 'rgba(34, 197, 94, 0.1)'
+  '--completed-all-todo-bg': 'rgba(34, 197, 94, 0.1)',
 };
 
 const darkTheme = {
@@ -53,11 +53,11 @@ const darkTheme = {
   '--medium-priority-border-color': '#FFB347',
   '--low-priority-border-color': '#4CAF50',
   '--crossed-out-text': '#8381817d',
-  '--modal-bg-color': '#3f4249',
+  '--modal-bg-color': '#6b7280',
   '--text-color-modal': '#161B22',
   '--box-shadow-cards-01': 'rgba(0, 0, 0, 0.3)',
   '--box-shadow-cards-02': 'rgba(0, 0, 0, 0.5)',
-  '--completed-all-todo-bg': 'rgba(0, 128, 0, 0.1)'
+  '--completed-all-todo-bg': 'rgba(0, 128, 0, 0.1)',
 };
 
 function start() {
@@ -173,7 +173,7 @@ function addButtonToLeftContentThree(btnName,  unsanitizedBtnName, user) {
 
   handleDeleteProjButton(user, newBtn, btnName);
   const allProjBtn = document.querySelector(".all-projects");
-  handleLeftButton(user, allProjBtn, "");
+  handleLeftButton(user, allProjBtn, ""); // reset to all projects button when a new project file is added;
 }
 
 
@@ -181,11 +181,7 @@ function handleSaveProjModal(userObj, modal) {
   const inputValue = modal.querySelector("#proj-name").value;
   const sanitizedProjName = inputValue.replace(/[^a-zA-Z0-9-_]/g, '');
 
-  // ! remove
   addProjName(userObj, sanitizedProjName);
-  addTodosProj(userObj, sanitizedProjName, "test", "test", new Date(), "low");
-  addTodosProj(userObj, sanitizedProjName, "test2", "test2", new Date(), "high");
-  addTodosProj(userObj, sanitizedProjName, "test3", "test3", new Date(), "medium");
 
   addButtonToLeftContentThree(sanitizedProjName, inputValue, userObj);
   clearProjModal(modal);
@@ -217,23 +213,15 @@ function handleAddProject(userObj) {
   }
 }
 
-// here logic will have to change when we have more projects, how to ensure that we display to the correct tab? have a unique id for each tab
-// is probably the move here, we iterate over the tabs and find the one that also has the new-style class, then make a function in 
-// changeDOM that takes in the user obj and the the tab that we want to display in.
-function chooseTab(user, originTab) {
-  if (originTab === "today") {
-    displayTodayTodos(user)
-  } else if (originTab === "all-tasks") {
-    displayAllTodos(user);
-  } else {
-    displayAllProjects(user);
-  }
+
+function chooseTab(user) {
+  const origin = document.querySelector(".new-style");
+  handleLeftButton(user, origin, "");
 }
 
 function handleDeleteTodos(todos, i, user) {
   todos.splice(i, 1);
-  const originTab = document.querySelector(".new-style").classList[0];
-  chooseTab(user, originTab);
+  chooseTab(user);
 }
 
 function handleCheckbox(deleteButton, todoObj, checkbox, middle, isReRender=false) {
@@ -279,18 +267,42 @@ function handleSaveTodoModal(userObj, modal) {
   const prioritySelectValue = modal.querySelector('#priority-select').value;
   const [year, month, date] = dateArea.split("-");
   Todos.addTodo(userObj, inputAreaValue, textAreaValue, new Date(year, month-1, date), prioritySelectValue);
-  const originTab = document.querySelector(".new-style").classList[0];
-  chooseTab(userObj, originTab);
+  chooseTab(userObj);
   clearTodoModal(modal);
 }
 
+function handleSaveTodoProjModal(userObj, modal, originTab) {
+  const inputAreaValue = modal.querySelector('#task-name').value;
+  const textAreaValue = modal.querySelector('#task-description').value;
+  const dateArea = modal.querySelector('#task-date').value;
+  const prioritySelectValue = modal.querySelector('#priority-select').value;
+  const [year, month, date] = dateArea.split("-");
+
+  const projName = originTab.split("-")[0];
+  addTodosProj(userObj, projName, inputAreaValue, textAreaValue,  new Date(year, month-1, date), prioritySelectValue);
+
+  chooseTab(userObj);
+  clearTodoModal(modal);
+}
+
+function handleSaveModal(userObj, modal) {
+  const origin = document.querySelector(".new-style");
+  const originTab = origin.classList[0];
+  if (originTab === "today" || originTab === "all-tasks") {
+    handleSaveTodoModal(userObj, modal, originTab);
+  } else {
+    handleSaveTodoProjModal(userObj, modal, originTab);
+  }
+}
+
+// get the tab we are being called from, it is today or all task do the same
 function handleAddTodos(userObj) {
   const modal = cachedDOM.cachedTodoModal;
   const openModalBtn = cachedDOM.cachedAddTodoButton;
   const closeModalBtn = document.querySelector(".close-todo");
   const saveButton = cachedDOM.cachedModalTodoSaveButton;
 
-  saveButton.addEventListener("click", () => handleSaveTodoModal(userObj, modal));
+  saveButton.addEventListener("click", () => handleSaveModal(userObj, modal));
 
   openModalBtn.onclick = function() {
     modal.style.display = "block";

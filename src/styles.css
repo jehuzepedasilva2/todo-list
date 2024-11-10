@@ -110,6 +110,10 @@ button.add-project {
   cursor: pointer;
 }
 
+button.add-project:hover {
+  transform: scale(1.1);
+}
+
 button.add-project:active {
   opacity: 0.5;
 }
@@ -195,10 +199,6 @@ button.add-project:active {
   position: relative;
 }
 
-.all-todo-card:hover {
-  transform: scale(1.02);
-}
-
 /* Top section (date and title) */
 .all-todo-card-top {
   display: flex;
@@ -263,6 +263,10 @@ button.add-project:active {
   margin-right: auto; /* Pushes this button to the far left */
 }
 
+.all-todo-bottom button:hover {
+  transform: scale(1.1);
+}
+
 .all-todo-bottom button:active {
   opacity: 0.5;
 }
@@ -288,10 +292,6 @@ button.add-project:active {
   padding: 2px 6px;
   border-radius: 4px;
   box-shadow: 0 0 2px var(--box-shadow-cards-01);
-}
-
-.all-todo-card {
-  transition: background-color 0.3s, opacity 0.3s;
 }
 
 .all-todo-card.checked .all-todo-desc {
@@ -364,8 +364,8 @@ button.add-project:active {
   justify-content: center;
   font-size: 6rem;
   position: fixed;
-  bottom: 15px;
-  right: 0;
+  bottom: 20px;
+  right: 10px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -943,6 +943,7 @@ input[type="checkbox"]:checked:after {
   transition: transform 0.2s ease-in-out;
   overflow-y: auto;
   gap: 10px;
+  position: relative;
 }
 
 .all-proj-card-top {
@@ -956,12 +957,51 @@ input[type="checkbox"]:checked:after {
   text-align: center;
 }
 
+.all-proj-card-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  appearance: none;
+  background: none;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+/* ! here */
+.all-proj-card-btn:hover {
+  transform: scale(1.1);
+}
+
+.all-proj-card-btn:active {
+  opacity: 0.5;
+}
+
 .right-content.user-projects {
   padding-top: 8px;
   display: flex;
   flex-direction: column;
   height: 85%;
-  gap: 8px;
+  gap: 4px;
+}
+
+.outer-proj-card {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 10px;
+  color: var(--text-color);
+  box-shadow: inset 0px 0px 20px var(--box-shadow-cards-01);
+}
+
+.outer-date {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 4px;
+
 }
 
 .proj-card.high {
@@ -1009,5 +1049,24 @@ input[type="checkbox"]:checked:after {
   align-self: center;
 }
 
+.proj-card-left.inner-all-projs {
+  padding-right: 10px;
+}
 
+.right-content.no-projs {
+  display: flex;
+  height: 85%;
+  justify-content: center;
+  align-items: center;
+}
 
+.right-content.no-projs h1 {
+  color: var(--crossed-out-text);
+}
+
+.all-todo-card, 
+.todo-card, 
+.proj-card, 
+.all-proj-card {
+  transition: background-color 0.3s, opacity 0.3s;
+}

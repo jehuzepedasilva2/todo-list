@@ -18,7 +18,7 @@
 }
 
 body {
-  min-width: 250px;
+  min-width: 270px;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -1102,6 +1102,37 @@ input[type="checkbox"]:checked::after {
     opacity 0.3s;
 }
 
+.left {
+  position: relative;
+  transition: left 0.5s ease-in-out;
+}
+
+.left-menu-button {
+  visibility: hidden;
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+}
+
+.left-menu-button:hover {
+  transform: scale(1.1);
+}
+
+.left.slide-out {
+  padding-right: 0;
+  left: 0rem;
+  width: fit-content;
+}
+
+.right {
+  filter: blur(0) brightness(100%);
+  transition: filter 0.3s ease-in-out;
+}
+
+.right.blur {
+  filter: blur(1px) brightness(50%);
+}
+
 
 @media (max-width: 1500px) {
   .clouds-container {
@@ -1110,9 +1141,10 @@ input[type="checkbox"]:checked::after {
 }
 
 
-@media (max-width: 750px) {
-  body {
-    flex-direction: column;
+@media (max-width: 770px) {
+
+  .left-menu-button {
+    visibility: visible;
   }
 
   .all-todo-card {
@@ -1125,7 +1157,7 @@ input[type="checkbox"]:checked::after {
   }
 
   .right {
-    margin-left: 10px;
+    margin-left: 26px;
   }
 
   .right-content {
@@ -1147,7 +1179,12 @@ input[type="checkbox"]:checked::after {
   }
 
   .left {
-    display: none;
+    position: absolute;
+    left: -12rem;
+    top: -1px;
+    z-index: 1;
+    height: 97.5%;
+    padding-right: 2rem;
   }
 
   .clouds-container {

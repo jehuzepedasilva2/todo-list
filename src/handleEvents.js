@@ -85,6 +85,7 @@ function start() {
   });
 
   handleLeftButton(userObj, leftButtons[0], leftButtons); // start off at today
+  handleLeftSlideoutMenu();
   placeMoonOrSun(theme);
 
   applyTheme(theme, intToTheme(theme));
@@ -415,6 +416,16 @@ function handleAllTaskCompleteButton(todoObj, button, card) {
 
 function handleAllTaskDeleteButton(todos, i, user) {
   handleDeleteTodos(todos, i, user);
+}
+
+function handleLeftSlideoutMenu() {
+  const menuButton = document.querySelector('.left-menu-button');
+  menuButton.addEventListener('click', () => {
+    const left = document.querySelector('.left')
+    const right = document.querySelector('.right');
+    right.classList.toggle('blur');
+    left.classList.toggle('slide-out');
+  })
 }
 
 export default (function eventHandler() {

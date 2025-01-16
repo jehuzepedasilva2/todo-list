@@ -1159,6 +1159,7 @@ input[type="checkbox"]:checked::after {
 
   .right {
     margin-left: 26px;
+    height: 100%;
   }
 
   .right-content {
@@ -1184,7 +1185,7 @@ input[type="checkbox"]:checked::after {
     left: -12.5rem;
     top: -1px;
     z-index: 1;
-    height: calc(100% - 18px);
+    height: 111%;
     width: fit-content;
     /* padding-right: 2rem; */
   }

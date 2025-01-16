@@ -1112,6 +1112,7 @@ input[type="checkbox"]:checked::after {
   position: absolute;
   top: 0.2rem;
   right: 0.2rem;
+  cursor: pointer;
 }
 
 .left-menu-button:hover {
@@ -1180,11 +1181,12 @@ input[type="checkbox"]:checked::after {
 
   .left {
     position: absolute;
-    left: -12rem;
+    left: -12.5rem;
     top: -1px;
     z-index: 1;
     height: 97.5%;
-    padding-right: 2rem;
+    width: fit-content;
+    /* padding-right: 2rem; */
   }
 
   .clouds-container {

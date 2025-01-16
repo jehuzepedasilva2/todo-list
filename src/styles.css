@@ -18,6 +18,7 @@
 }
 
 body {
+  min-width: 250px;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -35,11 +36,13 @@ body {
 }
 
 .right {
+  /* min-width: 500px; */
   margin: 10px 10px 10px 0px;
   flex: 12;
   border-radius: 10px;
   background-color: var(--right-bg-color);
   overflow-y: auto; /* Enable scrolling if content exceeds the viewport */
+  /* padding: 0.3rem; */
 }
 
 .right,
@@ -191,7 +194,7 @@ button.add-project:active {
   display: flex;
   flex-direction: column;
   min-height: 40%;
-  flex-basis: calc(50% - 16px);
+  flex-basis: calc(50% - 10px);
   padding: 16px;
   border-radius: 12px;
   background-color: var(--card-color);
@@ -248,7 +251,7 @@ button.add-project:active {
 
 .all-todo-bottom {
   flex: 1;
-  display: flex;
+  display: flex; 
   gap: 8px;
   justify-content: flex-end;
   align-items: flex-end;
@@ -383,22 +386,35 @@ svg {
 
 input[type="checkbox"] {
   appearance: none;
-  -webkit-appearance: none; /* For Safari */
+  -webkit-appearance: none;
   position: relative;
+  width: 1.5rem; 
+  height: 1.5rem;
+  border: 2px solid #000;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 input[type="checkbox"]::before {
-  content: "◯";
-  font-size: 1.1rem;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 50%;
 }
 
 input[type="checkbox"]:checked::after {
-  content: "●";
-  font-size: 1.9rem;
+  content: "";
   position: absolute;
-  left: 0;
-  bottom: -2.5px; /* Use fixed units for more consistent positioning */
+  width: 1rem; /* Adjust the size of the inner circle */
+  height: 1rem;
+  background: #000; /* Fill color for checked state */
+  border-radius: 50%;
 }
 
 .crossed-out {
@@ -1084,4 +1100,88 @@ input[type="checkbox"]:checked::after {
   transition:
     background-color 0.3s,
     opacity 0.3s;
+}
+
+
+@media (max-width: 1500px) {
+  .clouds-container {
+    transform: scale(0.85);
+  }
+}
+
+
+@media (max-width: 750px) {
+  body {
+    flex-direction: column;
+  }
+
+  .all-todo-card {
+    gap: 5px;
+  }
+
+  .all-todo-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .right {
+    margin-left: 10px;
+  }
+
+  .right-content {
+    flex-direction: column;
+  }
+
+  .right-content.all {
+    height: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .right-content.all-pro {
+    flex-wrap: nowrap;
+  }
+
+  .all-proj-card {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .left {
+    display: none;
+  }
+
+  .clouds-container {
+    transform: scale(0.68);
+  }
+}
+
+@media (max-width: 450px) {
+  .clouds-container {
+    transform: scale(0.6);
+  }
+
+  .right-top-header {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 400px) {
+  .right-top {
+    padding-top: 2rem;
+    height: max-content;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0;
+  }
+
+  .all-todo-card {
+    min-height: 100%;
+  }
+
+  .clouds-container {
+    padding-bottom: 0;
+    padding-top: 0;
+    transform: scale(0.6) translateY(30px);
+  }
 }

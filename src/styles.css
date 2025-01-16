@@ -1184,7 +1184,7 @@ input[type="checkbox"]:checked::after {
     left: -12.5rem;
     top: -1px;
     z-index: 1;
-    height: 97.5%;
+    height: calc(100% - 18px);
     width: fit-content;
     /* padding-right: 2rem; */
   }

@@ -1134,10 +1134,17 @@ input[type="checkbox"]:checked::after {
   filter: blur(1px) brightness(50%);
 }
 
+.todo-card-right button {
+  cursor: pointer;
+}
+
+.todo-card-right button:hover {
+  transform: scale(1.1);
+}
 
 @media (max-width: 1500px) {
   .clouds-container {
-    transform: scale(0.85);
+    transform: scale(0.75);
   }
 }
 
@@ -1159,7 +1166,7 @@ input[type="checkbox"]:checked::after {
 
   .right {
     margin-left: 26px;
-    height: 100%;
+    height: 100vh;
   }
 
   .right-content {
@@ -1180,14 +1187,18 @@ input[type="checkbox"]:checked::after {
     min-height: 100%;
   }
 
+  .right-content button.dis, 
+  .add-todo.dis {
+    pointer-events: none;
+  }
+
   .left {
     position: absolute;
     left: -12.5rem;
-    top: -1px;
+    top: -0.8px;
     z-index: 1;
-    height: 111%;
+    height: 100vh;
     width: fit-content;
-    /* padding-right: 2rem; */
   }
 
   .clouds-container {
@@ -1197,7 +1208,7 @@ input[type="checkbox"]:checked::after {
 
 @media (max-width: 450px) {
   .clouds-container {
-    transform: scale(0.6);
+    transform: scale(0.7);
   }
 
   .right-top-header {
@@ -1222,6 +1233,6 @@ input[type="checkbox"]:checked::after {
   .clouds-container {
     padding-bottom: 0;
     padding-top: 0;
-    transform: scale(0.6) translateY(30px);
+    transform: scale(0.7) translateY(30px);
   }
 }

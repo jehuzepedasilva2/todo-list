@@ -420,12 +420,35 @@ function handleAllTaskDeleteButton(todos, i, user) {
 
 function handleLeftSlideoutMenu() {
   const menuButton = document.querySelector('.left-menu-button');
-  menuButton.addEventListener('click', () => {
-    const left = document.querySelector('.left')
-    const right = document.querySelector('.right');
+  const left = document.querySelector('.left');
+  const right = document.querySelector('.right');
+  const rightButtons = document.querySelectorAll('.right-content button');
+  const bigAdd = document.querySelector('button.add-todo');
+
+  function handleMenuToggle() {
     right.classList.toggle('blur');
     left.classList.toggle('slide-out');
-  })
+    bigAdd.classList.toggle('dis');
+    rightButtons.forEach(b => b.classList.toggle('dis'));
+  
+    const handleOutsideClick = (e) => {
+      if (!left.contains(e.target) && !menuButton.contains(e.target)) {
+        right.classList.remove('blur');
+        left.classList.remove('slide-out');
+        bigAdd.classList.remove('dis');
+        rightButtons.forEach(b => b.classList.remove('dis'));
+  
+        window.removeEventListener('click', handleOutsideClick);
+        window.removeEventListener('touchstart', handleOutsideClick);
+      }
+    };
+  
+    window.addEventListener('click', handleOutsideClick);
+    window.addEventListener('touchstart', handleOutsideClick);
+  }
+
+  menuButton.addEventListener('click', handleMenuToggle);
+  menuButton.addEventListener('touchstart', handleMenuToggle);
 }
 
 export default (function eventHandler() {
